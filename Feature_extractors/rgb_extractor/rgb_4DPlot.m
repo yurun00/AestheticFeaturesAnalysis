@@ -18,30 +18,50 @@ RGB_hist = histnd(...
         [-inf 32 64 96 128 160 192 224 inf]);
 RGB_hist = RGB_hist(1:8, 1:8, 1:8);
 
-norm_RGB_hist = RGB_hist - min(RGB_hist(:));
-norm_RGB_hist = RGB_hist ./ max(RGB_hist(:));
+norm_RGB_hist = RGB_hist ./ numel(R);
 norm_RGB_hist = norm_RGB_hist(:);
 
 RGB_axes = [16 48 80 112 144 176 208 240];
-[X, Y, Z] = meshgrid(RGB_axes, RGB_axes, RGB_axes);
+[Y, X, Z] = meshgrid(RGB_axes, RGB_axes, RGB_axes);
 X = X(:); Y = Y(:); Z = Z(:); 
-S = norm_RGB_hist*700;
+S = norm_RGB_hist*10000;
 S(find(S <= 0)) = 1e-10;
-C = [Y,X,Z]/256;
+C = [X,Y,Z]/256;
 scatter3(X, Y, Z, S, C, 'filled');    % draw the scatter plot
-camproj('perspective');
-rotate3d on;
 ax = gca;
 %view(40,35);
-ax.YLabel.String = 'R';
-ax.YAxis.Color = 'r';
-ax.YLim = [0,256];
-ax.XLabel.String = 'G';
-ax.XAxis.Color = 'g';
+ax.XLabel.String = 'R';
+ax.XAxis.Color = 'r';
 ax.XLim = [0,256];
+ax.YLabel.String = 'G';
+ax.YAxis.Color = 'g';
+ax.YLim = [0,256];
 ax.ZLabel.String = 'B';
 ax.ZAxis.Color = 'b';
 ax.ZLim = [0,256];
+
+line_x = [0 1 1 0 0 0 1 1]*256;
+line_y = [0 0 1 1 0 0 0 0]*256;
+line_z = [1 1 1 1 1 0 0 1]*256;
+line(line_x, line_y, line_z, 'Color', 'k', 'LineWidth', 2);
+
+line_x = [1 1 1]*256;
+line_y = [0 1 1]*256;
+line_z = [0 0 1]*256;
+line(line_x, line_y, line_z, 'Color', 'k', 'LineWidth', 2);
+
+line_x = [0 0 0]*256;
+line_y = [0 1 1]*256;
+line_z = [0 0 1]*256;
+line(line_x, line_y, line_z, 'Color', 'k', 'LineWidth', 2);
+
+line_x = [1 0]*256;
+line_y = [1 1]*256;
+line_z = [0 0]*256;
+line(line_x, line_y, line_z, 'Color', 'k', 'LineWidth', 2);
+
+camproj('perspective');
+rotate3d on;
 
 end
 

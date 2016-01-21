@@ -1,6 +1,6 @@
-function h = histnd(data, varargin);
+function [h, ind] = histnd(data, varargin)
 %HISTND N-D histogram count
-%   H = HISTND(DATA, EDGE1, EDGE2, EDGE3, ...) returns a histogram
+%   [H, ind] = HISTND(DATA, EDGE1, EDGE2, EDGE3, ...) returns a histogram
 %   matrix which is EDGE1-by-EDGE2-by-EDGE3-by-... in size, where
 %   each element is the number of realizations of DATA that fall
 %   within the appropriate bin in each respective EDGE vector.
@@ -70,14 +70,14 @@ if length(hdim) == 1
 end
 
 %Create logical index of realizations that fall within EDGE vectors
-inrange(1:m) = logical(1);
+inrange(1:m) = true;
 
 %Use HISTC to get bin indicies of DATA into respective EDGE vectors
 bin = cell(1, n);
 
 for i = 1 : n
     [dummy, bin{i}] = histc(data(:, i), varargin{i});
-    inrange(bin{i} == 0) = logical(0);  %Remove out of range realizations
+    inrange(bin{i} == 0) = false;  %Remove out of range realizations
 end
 clear dummy;
 
@@ -86,15 +86,11 @@ for i = 1 : n
     bin{i} = bin{i}(inrange);
 end
 
-%Initialize output histogram matrix H
-h = zeros(hdim);
-
 %Convert bin indicies to linear indicies into output H,
 %then use HISTC once more to count indicies into H
-h = reshape( ...
-             histc( ...
-                    sub2ind(hdim, bin{:}), ...
-                    1 : prod(hdim) ...
-                  ), ...
-             hdim ...
-           );
+[h, indT] = histc(sub2ind(hdim, bin{:}), 1:prod(hdim));
+h = reshape(h, hdim);
+
+% put the indices to the original data points
+ind = nan(size(data,1), 1);
+ind(inrange) = indT;
