@@ -1,4 +1,4 @@
-%Description: This script extracts the 4D rgb histogram plot from a certain
+%DESCRIPTION: This script extracts the 4D rgb histogram plot from a certain
 %directory. Save them as '.jpg' and '.mat' files. 
 %
 % Other m-files required: none
@@ -14,11 +14,11 @@
 
 %------------- BEGIN CODE --------------
 
-clear all;
+clear all; clc;
 
-address_jpg = '..\..\data\paintings_classified\genre\landscape\';
-address_mat = '..\..\data\paintings_mat\';
-address_feature = '..\..\data\features\rgb_hist\genre\landscape\';
+address_jpg = '..\..\..\data\paintings_classified\genre\portrait\';
+address_mat = '..\..\..\data\paintings_mat\';
+address_feature = '..\..\..\data\features\rgb_hist\genre\portrait\';
 files = dir(fullfile(address_jpg,'*.jpg'));
 
 for i=1:length(files)
@@ -28,14 +28,14 @@ for i=1:length(files)
         img_in = img_in.img;
         
         %Compute the RGB histogram
-        [rgb_hist, scatter_input] = histogram_rgb(img_in);
+        [rgbhist, scatter_input] = histogram_rgb(img_in);
         
         %Save the RGB histogram 3D pictures
 %         scatter3_rgb(scatter_input);
 %         print(strcat(address_feature,files(i).name(1:name_len),'_rgb_hist'), '-djpeg');
         
         %Save RGB histogram as files
-        save(strcat(address_feature,files(i).name(1:name_len),'_rgb_hist.mat'),'rgb_hist');
+        save(strcat(address_feature,files(i).name(1:name_len),'_rgbhist.mat'),'rgbhist');
         disp(i);
 end
 

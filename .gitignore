@@ -1,5 +1,5 @@
 *.jpg
-*.mat
-Oil_paintings_classified/
-All_paintings_mat/
-All_oil_paintings/
+test/
+data/paintings_mat
+data/paintings
+data/paintings_classified
