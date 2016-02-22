@@ -76,9 +76,7 @@ obs = [rgbhist_ls;rgbhist_ptt];
 %% Dividing Data Into a Training Set and a Test Set 
 % Use |cvpartition| to divide data into a training set and a test set. Both
 % the training set and the test set have roughly the same group proportions
-% as in |grp|. One often select features using the training data and judge 
-% the performance of the selected features on the test data, which is often 
-% called holdout validation.
+% as in |grp|. I apply holdout validation here.
 
 holdoutCVP = cvpartition(grp,'holdout',0.2);
 %%
@@ -86,39 +84,24 @@ dataTrain = obs(holdoutCVP.training,:);
 grpTrain = grp(holdoutCVP.training);
 
 %% The Problem of Classifying Data Using All the Features
-% Without first reducing the number of features, some classification
-% algorithms would fail on the data set, since the number of features is 
-% much larger than the number of observations.
+% If one uses Quadratic Discriminant Analysis (QDA) as the classification
+% algorithm and applies QDA on the data using all the features, he will get 
+% an error here because there are not enough samples in each group to 
+% estimate a covariance matrix. 
 %
-% If one use Quadratic Discriminant Analysis (QDA) as the classification
-% algorithm and apply QDA on the data using all the features, he will get 
-% an error because there are not enough samples in each group to estimate a
-% covariance matrix. 
+% In this case, there is an error for the lack of samples.
 
-% try
-%    yhat = classify(obs(test(holdoutCVP),:), dataTrain, grpTrain,'quadratic');
-% catch ME
-%    display(ME.message);
-% end
+try
+   yhat = classify(obs(test(holdoutCVP),:), dataTrain, grpTrain,'quadratic');
+catch ME
+   display(ME.message);
+end
 
 %% Selecting Features Using a Simple Filter Approach
-% The goal is to reduce the dimension of the data by finding a small set of
-% important features. One can apply fileter methods as pre-processing step.
+% Apply fileter methods as pre-processing step first.
 %
-% Feature selection algorithms can be roughly grouped into two categories:
-% filter methods and wrapper methods. Filter methods rely on general
-% characteristics of the data to evaluate and to select the feature subsets
-% without involving the chosen learning algorithm (QDA in this example).
-% Wrapper methods use the performance of the chosen learning algorithm to
-% evaluate each candidate feature subset. Wrapper methods search for
-% features better fit for the chosen learning algorithm, but they can be
-% significantly slower than filter methods if the learning algorithm takes
-% a long time to run.
-%
-% Filters are usually used as a pre-processing step since they are simple
-% and fast. A widely-used filter method for bioinformatics data is to apply
-% a univariate criterion separately on each feature, assuming that there is
-% no interaction between features. 
+% Apply Wrapper methods latter to search for features better fit for the 
+% chosen learning algorithm, becasue they can be significantly slower.
 %
 % We apply the _t_-test on each feature and compare _p_-value (or the 
 % absolute values of _t_-statistics) for each feature as a measure of how 
@@ -131,7 +114,6 @@ dataTrainG2 = dataTrain(grp2idx(grpTrain)==2,:);
 ecdf(p);
 xlabel('P value'); 
 ylabel('CDF value');
-
 %%
 % There are about 30% of features having _p_-values close to zero, meaning 
 % there are more than 150 features among the original 512 features that 
@@ -140,29 +122,40 @@ ylabel('CDF value');
 % select some features from the sorted list. But one should decide how many
 % features are needed.
 %
-% One quick way to decide the number of needed features is to plot the MCE
+% Plot the MCE on the test set as a function of the number of features to 
+% decide the number of needed features.
 % (misclassification error, i.e., the number of misclassified observations
-% divided by the number of observations) on the test set as a function of
-% the number of features. Since there are only 512 featrues in the
-% training set, the largest number of features for applying QDA is limited,
+% divided by the number of observations) 
 %
-% Now we compute MCE for various numbers of features between 10 and 510 and
-% show the plot of MCE as a function of the number of features. In order to
-% reasonably estimate the performance of the selected model, it is
-% important to use the 80% training samples to fit the QDA model and
-% compute the MCE on the 20% test observations (blue circular marks in the
-% following plot). To illustrate why resubstitution error is not a good
-% error estimate of the test error, we also show the resubstitution MCE
-% using red triangular marks.
+% Use the 80% training samples to fit the QDA model and compute the MCE on 
+% the 20% test observations (blue circular marks in the following plot). 
+% Also show the resubstitution MCE using red triangular marks.
 %
 [~,featureIdxSortbyP] = sort(p,2); % sort the features
-testMCE = zeros(1,51);
-resubMCE = zeros(1,51);
-nfs = 10:10:510;
+% testMCE = zeros(1,51);
+% resubMCE = zeros(1,51);
+testMCE = zeros(1,20);
+resubMCE = zeros(1,20);
+% nfs = 10:10:510;
+nfs = 10:10:200;
+% For convenience, |classf| is defined as an anonymous function. It fits
+% QDA on the given training set and returns the number of misclassified
+% samples for the given test set. If one wanted to develop his own
+% classification algorithm, he might want to put it in a separate file, as
+% follows:
+
+%  function err = classf(xtrain,ytrain,xtest,ytest)
+%       yfit = classify(xtest,xtrain,ytrain,'quadratic');
+%        err = sum(~strcmp(ytest,yfit));
 classf = @(xtrain,ytrain,xtest,ytest) ...
              sum(~strcmp(ytest,classify(xtest,xtrain,ytrain,'quadratic')));
 resubCVP = cvpartition(length(grp),'resubstitution');
-for i = 1:51
+% The maximum number of features cannot be greater than 200. With more 
+% features,the Quadratic Discriminant Analysis (QDA) will get an error 
+% because there are not enough samples in each group to estimate a 
+% covariance matrix. 
+% for i = 1:51
+for i = 1:20
    fs = featureIdxSortbyP(1:nfs(i));
    testMCE(i) = crossval(classf,obs(:,fs),grp,'partition',holdoutCVP)...
        /holdoutCVP.TestSize;
@@ -174,5 +167,88 @@ end
  ylabel('MCE');
  legend({'MCE on the test set' 'Resubstitution MCE'},'location','NW');
  title('Simple Filter Feature Selection Method');
+%%
+% This simple filter feature selection method gets the smallest MCE on the 
+% test set when 160 features are used. The smallest MCE on the test set is 
+% about 22%:
+testMCE(16);
+%%
+% These are the first 160 features that achieve the minimum MCE:
+featureIdxSortbyP(1:160);
 
+%% Applying Sequential Feature Selection
+% Considering interaction between features and redundant information, one
+% may apply SFS.
+%
+% The feature selection procedure performs a sequential search using the 
+% MCE of the learning algorithm QDA on each candidate feature subset 
+% as the performance indicator for that subset.
+% 
+% The training set is used to select the features and to fit the QDA model,
+% and the test set is used to evaluate the performance of the finally 
+% selected features. During the feature selection procedure, to evaluate 
+% and to compare the performance of the each candidate feature subset, we 
+% apply stratified 10-fold cross-validation to the training set.
+%
+% Generate a stratified 10-fold partition for the training set
+tenfoldCVP = cvpartition(grpTrain,'kfold',10);
+%%
+% Use the filter results from the previous section as a pre-processing step
+% to select features. For instance, we select 160 features here:
+fs1 = featureIdxSortbyP(1:160);
+%%
+% We apply forward sequential feature selection on these 160 features.
+% The function |sequentialfs| stops when the first local minimum of the 
+% cross-validation MCE is found.
+fsLocal = sequentialfs(classf,dataTrain(:,fs1),grpTrain,'cv',tenfoldCVP);
+%%
+% The selected features are the following:
+fs1(fsLocal);
+
+%%
+% To evaluate the performance of the selected model with these 12 features,
+% we compute the MCE on the 56 test samples.
+testMCELocal = crossval(classf,obs(:,fs1(fsLocal)),grp,'partition',...
+    holdoutCVP)/holdoutCVP.TestSize;
+%% 
+% With only 12 features being selected, the MCE is a little over the 
+% smallest MCE using the simple filter feature selection method.
+
+%%
+% The algorithm may have stopped prematurely. Sometimes a smaller MCE is
+% achievable by looking for the minimum of the cross-validation MCE over a
+% reasonable range of number of features. 
+% Draw the plot of the cross-validation MCE as a function of the number of 
+% features for up to 50 features.
+[fsCVfor50,historyCV] = sequentialfs(classf,dataTrain(:,fs1),grpTrain,...
+    'cv',tenfoldCVP,'Nf',50);
+plot(historyCV.Crit,'o');
+xlabel('Number of Features');
+ylabel('CV MCE');
+title('Forward Sequential Feature Selection with cross-validation');
+%%
+% The cross-validation MCE reaches the minimum when 51 features are used.
+fsCVfor51 = fs1(historyCV.In(51,:))
+%% 
+% To show these 51 features in the order in which they are selected in the
+% sequential forward procedure, we find the row in which they first become
+% true in the |historyCV| output:
+[orderlist,ignore] = find( [historyCV.In(1,:); diff(historyCV.In(1:51,:) )]' );
+fs1(orderlist)
+%%
+% To evaluate these 10 features, we compute their MCE for QDA on the test
+% set. We get the smallest MCE value so far:
+testMCECVfor51 = crossval(classf,obs(:,fsCVfor51),grp,'partition',...
+    holdoutCVP)/holdoutCVP.TestSize 
+
+%%
+% It is interesting to look at the plot of resubstitution MCE values on the
+% training set (i.e., without performing cross-validation during the
+% feature selection procedure) as a function of the number of features:
+[fsResubfor100,historyResub] = sequentialfs(classf,dataTrain(:,fs1),...
+     grpTrain,'cv','resubstitution','Nf',100);
+plot(1:100, historyCV.Crit,'bo',1:100, historyResub.Crit,'r^');
+xlabel('Number of Features');
+ylabel('MCE');
+legend({'10-fold CV MCE' 'Resubstitution MCE'},'location','NE');
 %------------- END OF CODE --------------
