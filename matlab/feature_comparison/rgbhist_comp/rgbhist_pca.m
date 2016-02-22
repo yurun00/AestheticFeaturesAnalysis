@@ -32,8 +32,11 @@
 
 clear all; clc;
 
-addr_ls_ftr = '..\..\..\data\features\rgb_hist\genre\landscape\';
-addr_ptt_ftr = '..\..\..\data\features\rgb_hist\genre\portrait\';
+addr = '..\..\..\data\features\rgb_hist\genre\';
+ls = 'landscape';
+ptt = 'portrait';
+addr_ls_ftr = strcat(addr,ls,'\');
+addr_ptt_ftr = strcat(addr,ptt,'\');
 rgbhist_mat_ls = dir(fullfile(addr_ls_ftr,'*.mat'));
 rgbhist_mat_ptt = dir(fullfile(addr_ptt_ftr,'*.mat'));
 
@@ -100,10 +103,6 @@ end
 w = cef(:,1:l);
 fs_obs = obs * w;
 
-t = strfind(addr_ls_ftr,'\');
-t_ls = addr_ls_ftr(t(end-1)+1:end-1);
-t_ptt = addr_ptt_ftr(t(end-1)+1:end-1);
-
-save(strcat(addr_ls_ftr(1:t(end-1)),'_pca\',t_ls,'_',t_ptt,'_pca_feature_space_obs.mat'),'fs_obs');
+save(strcat(addr,'_pca\',ls,'_',ptt,'_pca_feature_space_obs.mat'),'fs_obs');
 
 %------------- END OF CODE --------------

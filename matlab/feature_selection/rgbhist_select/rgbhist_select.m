@@ -20,7 +20,7 @@
 
 %------------- BEGIN CODE --------------
 
-clear all; %clc;
+clear all; clc;
 
 %% Loading the data
 % This part focus on the paintings belong to the category 'landscape' and 
@@ -30,8 +30,11 @@ clear all; %clc;
 % consists observations with 512 features. Each element in |grp| defines 
 % the group to which the corresponding row of |obs| belongs.
 
-addr_ls_ftr = '..\..\..\data\features\rgb_hist\genre\landscape\';
-addr_ptt_ftr = '..\..\..\data\features\rgb_hist\genre\portrait\';
+addr = '..\..\..\data\features\rgb_hist\genre\';
+ls = 'landscape';
+ptt = 'portrait';
+addr_ls_ftr = strcat(addr,ls,'\');
+addr_ptt_ftr = strcat(addr,ptt,'\');
 rgbhist_mat_ls = dir(fullfile(addr_ls_ftr,'*.mat'));
 rgbhist_mat_ptt = dir(fullfile(addr_ptt_ftr,'*.mat'));
 
@@ -162,11 +165,13 @@ for i = 1:20
    resubMCE(i) = crossval(classf,obs(:,fs),grp,'partition',resubCVP)/...
        resubCVP.TestSize;
 end
- plot(nfs, testMCE,'o',nfs,resubMCE,'r^');
- xlabel('Number of Features');
- ylabel('MCE');
- legend({'MCE on the test set' 'Resubstitution MCE'},'location','NW');
- title('Simple Filter Feature Selection Method');
+save(strcat(addr,'_f_sel_mce\',ls,'_',ptt,'_testMCE.mat'),'testMCE');
+save(strcat(addr,'_f_sel_mce\',ls,'_',ptt,'_resubMCE.mat'),'resubMCE');
+plot(nfs, testMCE,'o',nfs,resubMCE,'r^');
+xlabel('Number of Features');
+ylabel('MCE');
+legend({'MCE on the test set' 'Resubstitution MCE'},'location','NW');
+title('Simple Filter Feature Selection Method');
 %%
 % This simple filter feature selection method gets the smallest MCE on the 
 % test set when 160 features are used. The smallest MCE on the test set is 
@@ -220,15 +225,17 @@ testMCELocal = crossval(classf,obs(:,fs1(fsLocal)),grp,'partition',...
 % reasonable range of number of features. 
 % Draw the plot of the cross-validation MCE as a function of the number of 
 % features for up to 50 features.
-[fsCVfor50,historyCV] = sequentialfs(classf,dataTrain(:,fs1),grpTrain,...
-    'cv',tenfoldCVP,'Nf',50);
+[fsCVfor100,historyCV] = sequentialfs(classf,dataTrain(:,fs1),grpTrain,...
+    'cv',tenfoldCVP,'Nf',100);
+fsfsMCE = historyCV.Crit;
+save(strcat(addr,'_f_sel_mce\',ls,'_',ptt,'_fsfsMCE.mat'),'fsfsMCE');
 plot(historyCV.Crit,'o');
 xlabel('Number of Features');
 ylabel('CV MCE');
 title('Forward Sequential Feature Selection with cross-validation');
 %%
 % The cross-validation MCE reaches the minimum when 51 features are used.
-fsCVfor51 = fs1(historyCV.In(51,:))
+fsCVfor51 = fs1(historyCV.In(51,:));
 %% 
 % To show these 51 features in the order in which they are selected in the
 % sequential forward procedure, we find the row in which they first become
