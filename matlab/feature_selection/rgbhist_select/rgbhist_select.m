@@ -16,7 +16,7 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 02/17/2016; Last revision: 02/18/2016
+% Created: 02/17/2016; Last revision: 02/22/2016
 
 %------------- BEGIN CODE --------------
 
@@ -35,7 +35,7 @@ addr_ptt_ftr = '..\..\..\data\features\rgb_hist\genre\portrait\';
 rgbhist_mat_ls = dir(fullfile(addr_ls_ftr,'*.mat'));
 rgbhist_mat_ptt = dir(fullfile(addr_ptt_ftr,'*.mat'));
 
-% Store the category of corresponding painting's histogram, 
+% Store the category of corresponding painting's histogram
 grp = cell(length(rgbhist_mat_ls) + length(rgbhist_mat_ptt), 1);
 addi = 0;
 
