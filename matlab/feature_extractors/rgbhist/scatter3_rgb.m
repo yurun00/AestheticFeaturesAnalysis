@@ -1,4 +1,4 @@
-function h = scatter3_rgb(input)
+function h = scatter3_rgb(norm_rgbhist)
 %SCATTER3_RGB - Plot a 3D image with X, Y, Z axes as R, G, B weight and 
 %returns the scatter series object. 
 %Use h to modify properties of the scatter series after it is created. 
@@ -7,13 +7,11 @@ function h = scatter3_rgb(input)
 %The color of the circle shows the R, G, B mixed color of the corresponding
 %interval. 
 %
-% Syntax:  H = SCATTER3_RGB(INPUT)
+% Syntax:  H = SCATTER3_RGB(NORM_RGBHIST)
 %
 % Inputs:
-%   input - A 7-columns matrix. 
-%       The first three columns indicates the X, Y, Z coordinates. 
-%       Next columns indicates the sizes of circles.
-%       The last three columns indicates the RGB color weights of circles.
+%   input - A 3-columns matrix. 
+%       The three columns indicate the X, Y, Z coordinates. 
 %
 % Outputs:
 %    h - The scatter series object.
@@ -27,16 +25,20 @@ function h = scatter3_rgb(input)
 % Author: Run Yu
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn 
-% Created: 01/22/2016; Last revision: 01/22/2016
+% Created: 01/22/2016; Last revision: 02/24/2016
 
 %------------- BEGIN CODE --------------
+%Generate the X, Y, Z coordinates in order(X changes the most fast)
+RGB_axes = [16 48 80 112 144 176 208 240];
+[Y, X, Z] = meshgrid(RGB_axes, RGB_axes, RGB_axes);
+X = X(:); Y = Y(:); Z = Z(:); 
 
-%Get the data input of scatter3
-X = input(:,1);
-Y = input(:,2);
-Z = input(:,3);
-S = input(:,4);
-C = input(:,5:7);
+%Adjust the radius of the circle
+S = norm_rgbhist * 10000;
+S(find(S <= 0)) = 1e-10;
+
+%Normalize the color values
+C = [X,Y,Z]/255;
 
 %Draw the 3D rgb histogram
 h = scatter3(X, Y, Z, S, C, 'filled');

@@ -1,4 +1,4 @@
-function [norm_RGB_hist,scatter_input] = histogram_rgb( img )
+function norm_RGB_hist = histogram_rgb( img )
 %HISTOGRAM_RGB - Compute the RGB histogram of an image. Each of the R,G,B
 %values are divided into 8 intervals. Return the 4D representation of the
 %histogram with RGB indicates the 3D position, and circle size indicates 
@@ -11,13 +11,6 @@ function [norm_RGB_hist,scatter_input] = histogram_rgb( img )
 %
 % Outputs:
 %   norm_RGB_hist - Normalized RGB Histogram vector.
-%   scatter_input - Input for scatter_rgb4D, include(by column)
-%       X - X coordinate of a certain interval.
-%       Y - Y coordinate of a certain interval.
-%       Z - Z coordinate of a certain interval.
-%       S - Size of the circle(amount of pixels fall in the interval) 
-%       showed on the 3D scatter plot.
-%       C(3-columns) - Normalized color of each circle(by divide 255).
 %
 % Other m-files required: histnd.m
 % Subfunctions: none
@@ -53,20 +46,6 @@ RGB_hist = RGB_hist(1:8, 1:8, 1:8);
 %Nomalize the RGB histogram and transform it to a vector
 norm_RGB_hist = RGB_hist ./ numel(R);
 norm_RGB_hist = norm_RGB_hist(:);
-
-%Generate the X, Y, Z coordinates in order(X changes the most fast)
-RGB_axes = [16 48 80 112 144 176 208 240];
-[Y, X, Z] = meshgrid(RGB_axes, RGB_axes, RGB_axes);
-X = X(:); Y = Y(:); Z = Z(:); 
-
-%Adjust the radius of the circle
-S = norm_RGB_hist * 10000;
-S(find(S <= 0)) = 1e-10;
-
-%Normalize the color values
-C = [X,Y,Z]/255;
-
-scatter_input = [X,Y,Z,S,C];
 
 end
 
