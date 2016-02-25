@@ -1,20 +1,6 @@
-% DESCRIPTION:
-%
-% Syntax:  [output1,output2] = function_name(input1,input2,input3)
-%
-% Inputs:
-%    input1 - Description
-%    input2 - Description
-%    input3 - Description
-%
-% Outputs:
-%    output1 - Description
-%    output2 - Description
-%
-% Example: 
-%    Line 1 of example
-%    Line 2 of example
-%    Line 3 of example
+% DESCRIPTION:This file is used to extract principle components from the
+% rgb histograms classified by genres. Then it saves the transformed
+% observations in feature space to '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
@@ -26,7 +12,7 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 01/28/2016; Last revision: 02/22/2016
+% Created: 01/28/2016; Last revision: 02/25/2016
 
 %------------- BEGIN CODE --------------
 
@@ -103,6 +89,6 @@ end
 w = cef(:,1:l);
 fs_obs = obs * w;
 
-save(strcat(addr,'_pca\',ls,'_',ptt,'_pca_feature_space_obs.mat'),'fs_obs');
+save(strcat(addr,'_pca\',ls,'_',ptt,'_pca_feature_space_obs.mat'),'fs_obs','grp');
 
 %------------- END OF CODE --------------
