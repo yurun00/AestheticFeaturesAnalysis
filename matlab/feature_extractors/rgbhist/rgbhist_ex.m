@@ -18,10 +18,11 @@
 clear all; clc;
 
 address_jpg = '..\..\..\data\paintings_classified\genre\';
+address_glb = '..\..\..\data\global_var\';
 address_mat = '..\..\..\data\paintings_mat\';
 address_feature = '..\..\..\data\features\rgb_hist\genre\';
-genre_files = dir(address_jpg);
-genres = {genre_files(3:end).name};
+genres = load([address_glb, 'genres.mat']);
+genres = genres.genres;
 
 for g = genres(1:end)
     files = dir([address_jpg, g{1}, '\', '*.jpg']);

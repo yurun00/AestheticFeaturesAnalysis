@@ -18,86 +18,81 @@
 
 clear all; clc;
 
-addr = '..\..\..\data\features\rgb_hist\genre\';
-genre_files = dir(addr);
-genres = {genre_files(5:end).name};
+addr_genre = '..\..\..\data\features\rgb_hist\genre\';
+addr_glb = '..\..\..\data\global_var\';
+genres = load([addr_glb, 'genres.mat']);
+genres = genres.genres;
 
-for g1 = genres{1:end}
-    for g2 = genres{1:end}
+for i = 1:length(genres)
+    for j = 1:length(genres)
+        if(i < j)
+            g1 = genres{i};
+            g2 = genres{j};
+            addr_g1_ftr = strcat(addr_genre,g1,'\');
+            addr_g2_ftr = strcat(addr_genre,g2,'\');
+            rgbhist_mat_g1 = dir(fullfile(addr_g1_ftr,'*.mat'));
+            rgbhist_mat_g2 = dir(fullfile(addr_g2_ftr,'*.mat'));
+            
+            % Store the category of corresponding painting's histogram
+            grp = cell(length(rgbhist_mat_g1) + length(rgbhist_mat_g2), 1);
+            addi = 0;
+            
+            % RGB histogram matrix of landscape images
+            rgbhist_g1 = zeros(length(rgbhist_mat_g1), 512);
+            for m=1:length(rgbhist_mat_g1)
+                %Load rgbhist
+                rgbhist_in = load(strcat(addr_g1_ftr,rgbhist_mat_g1(m).name));
+                rgbhist_in = rgbhist_in.rgbhist;
 
+                %Concatenate the rgbhist for PCA input
+                rgbhist_g1(m,:) = rgbhist_in';
+
+                grp{m+addi} = g1;
+            end
+            addi = addi + length(rgbhist_mat_g1);
+            
+            %RGB histogram matrix of portrait images
+            rgbhist_g2 = zeros(length(rgbhist_mat_g2), 512);
+            for m=1:length(rgbhist_mat_g2)
+                %Load rgbhist
+                rgbhist_in = load(strcat(addr_g2_ftr,rgbhist_mat_g2(m).name));
+                rgbhist_in = rgbhist_in.rgbhist;
+
+                %Concatenate the rgbhist for PCA input
+                rgbhist_g2(m,:) = rgbhist_in';
+
+                grp{m+addi} = g2;
+            end
+
+            obs = [rgbhist_g1;rgbhist_g2];
+            % cef(matrix): Columns represent eigenvectors
+            % ltt(column vector): Eigenvalues in decreasing order
+            [cef, scr, ltt] = pca(obs);
+
+            % The threshhold determines the dimension of transformed dataset
+            g = zeros(512,1);
+            g(1) = ltt(1);
+            for k = 2:512
+                g(k) = g(k-1)+ltt(k);
+            end
+            l = 0;
+            for l = 1:512
+                if(g(l)/g(512) >= 0.95)
+                    break;
+                end
+            end
+
+            % Transform original dataset to feature space(512 dimension to L dimension)
+            w = cef(:,1:l);
+            fs_obs = obs * w;
+            
+            save(strcat(addr_genre,'_pca\',g1,'_',g2,'_pca_feature_space_obs.mat'),'fs_obs','grp');
+        end
     end
 end
 
-ls = 'landscape';
-ptt = 'portrait';
-addr_ls_ftr = strcat(addr,ls,'\');
-addr_ptt_ftr = strcat(addr,ptt,'\');
-rgbhist_mat_ls = dir(fullfile(addr_ls_ftr,'*.mat'));
-rgbhist_mat_ptt = dir(fullfile(addr_ptt_ftr,'*.mat'));
 
-% test data
-% [123 109 62 104 57 37 44 100 16 28 138 105 159 75 88 164 169 167 149 167]
-% [76 70 55 71 55 48 50 66 41 43 82 68 88 58 64 88 89 88 84 88]
 
-% Store the category of corresponding painting's histogram
-grp = cell(length(rgbhist_mat_ls) + length(rgbhist_mat_ptt), 1);
-addi = 0;
 
-% RGB histogram matrix of landscape images
-rgbhist_ls = zeros(length(rgbhist_mat_ls), 512);
-for i=1:length(rgbhist_mat_ls)
-        name_len = strfind(rgbhist_mat_ls(i).name,'.mat')-1;
-        
-        %Load rgbhist
-        rgbhist_in = load(strcat(addr_ls_ftr,rgbhist_mat_ls(i).name));
-        rgbhist_in = rgbhist_in.rgbhist;
-        
-        %Concatenate the rgbhist for PCA input
-        rgbhist_ls(i,:) = rgbhist_in';
-        
-        grp{i+addi} = 'landscape';
-end
-addi = addi + length(rgbhist_mat_ls);
-
-%RGB histogram matrix of portrait images
-rgbhist_ptt = zeros(length(rgbhist_mat_ptt), 512);
-for i=1:length(rgbhist_mat_ptt)
-        name_len = strfind(rgbhist_mat_ptt(i).name,'.mat')-1;
-        
-        %Load rgbhist
-        rgbhist_in = load(strcat(addr_ptt_ftr,rgbhist_mat_ptt(i).name));
-        rgbhist_in = rgbhist_in.rgbhist;
-        
-        %Concatenate the rgbhist for PCA input
-        rgbhist_ptt(i,:) = rgbhist_in';
-        
-        grp{i+addi} = 'portrait';
-end
-addi = addi + length(rgbhist_mat_ptt);
-
-obs = [rgbhist_ls;rgbhist_ptt];
-
-% cef(matrix): Columns represent eigenvectors
-% ltt(column vector): Eigenvalues in decreasing order
-[cef, scr, ltt] = pca(obs);
-
-% The threshhold determines the dimension of transformed dataset
-g = zeros(512,1);
-g(1) = ltt(1);
-for j = 2:512
-    g(j) = g(j-1)+ltt(j);
-end
-l = 0;
-for l = 1:512
-    if(g(l)/g(512) >= 0.95)
-        break;
-    end
-end
-
-% Transform original dataset to feature space(512 dimension to L dimension)
-w = cef(:,1:l);
-fs_obs = obs * w;
-
-save(strcat(addr,'_pca\',ls,'_',ptt,'_pca_feature_space_obs.mat'),'fs_obs','grp');
 
 %------------- END OF CODE --------------

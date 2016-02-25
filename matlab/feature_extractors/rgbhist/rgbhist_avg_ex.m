@@ -18,8 +18,9 @@
 clear all; clc;
 
 address_feature = '..\..\..\data\features\rgb_hist\genre\';
-genre_files = dir(address_feature);
-genres = {genre_files(6:end).name};
+address_glb = '..\..\..\data\global_var\';
+genres = load([address_glb, 'genres.mat']);
+genres = genres.genres;
 
 for g = genres(1:end)
     files = dir([address_feature, g{1}]);
@@ -36,11 +37,11 @@ for g = genres(1:end)
     end
     avg_rgbhist = avg_rgbhist/(length(files)-2);
     %Save RGB histogram as files
-    save([address_feature, g{1}, '_avg_rgbhist.mat'],'avg_rgbhist');
+    save([address_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist.mat'],'avg_rgbhist');
     disp(g{1});
     %Save the rgb histogram 3D pictures
     scatter3_rgb(avg_rgbhist);
-    print([address_feature, g{1}, '_avg_rgbhist'], '-djpeg');
+    print([address_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist'], '-djpeg');
 end
 
 %------------- END OF CODE --------------
