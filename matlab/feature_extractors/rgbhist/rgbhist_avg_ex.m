@@ -19,7 +19,7 @@ clear all; clc;
 
 address_feature = '..\..\..\data\features\rgb_hist\genre\';
 genre_files = dir(address_feature);
-genres = {genre_files(5:end).name};
+genres = {genre_files(6:end).name};
 
 for g = genres(1:end)
     files = dir([address_feature, g{1}]);

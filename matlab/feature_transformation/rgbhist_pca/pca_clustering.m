@@ -39,13 +39,18 @@ addr = '..\..\..\data\features\rgb_hist\genre\';
 ls = 'landscape';
 ptt = 'portrait';
 fs_grp_in = load(strcat(addr,'_pca\',ls,'_',ptt,'_pca_feature_space_obs.mat'));
-fs_in = fs_grp_in.fs_obs;
+fs_obs_in = fs_grp_in.fs_obs;
 grp_in = fs_grp_in.grp;
 
-d = pdist(fs_in);
-Z = linkage(d,'ward','euclidean');
-c = cluster(Z,'maxclust',2);
-crosstab(c,grp_in);
+Z = linkage(fs_obs_in,'ward','euclidean');
+c = cluster(Z,'maxclust',2:4);
+
+ct = crosstab(c(:,1),grp_in);
+mce = min(ct(1,1) + ct(2,2),ct(1,2) + ct(2,1))/sum(ct(:));
+
+% for i = 2:4
+% 	crosstab(c(:,i),grp_in);
+% end
 
 %------------- END OF CODE --------------
 

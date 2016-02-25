@@ -19,6 +19,15 @@
 clear all; clc;
 
 addr = '..\..\..\data\features\rgb_hist\genre\';
+genre_files = dir(addr);
+genres = {genre_files(5:end).name};
+
+for g1 = genres{1:end}
+    for g2 = genres{1:end}
+
+    end
+end
+
 ls = 'landscape';
 ptt = 'portrait';
 addr_ls_ftr = strcat(addr,ls,'\');
