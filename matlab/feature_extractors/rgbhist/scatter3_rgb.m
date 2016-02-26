@@ -1,17 +1,17 @@
 function h = scatter3_rgb(norm_rgbhist)
-%SCATTER3_RGB - Plot a 3D image with X, Y, Z axes as R, G, B weight and 
-%returns the scatter series object. 
-%Use h to modify properties of the scatter series after it is created. 
-%The size of the circle shows the amount of pixels of the original image 
-%which fall in the corresponding interval. 
-%The color of the circle shows the R, G, B mixed color of the corresponding
-%interval. 
+% SCATTER3_RGB - Plot a 3D image with X, Y, Z axes as R, G, B weight and 
+% returns the scatter series object. 
+% Use h to modify properties of the scatter series after it is created. 
+% The size of the circle shows the amount of pixels of the original image 
+% which fall in the corresponding interval. 
+% The color of the circle shows the R, G, B mixed color of the 
+% corresponding interval. 
 %
 % Syntax:  H = SCATTER3_RGB(NORM_RGBHIST)
 %
 % Inputs:
-%   input - A 3-columns matrix. 
-%       The three columns indicate the X, Y, Z coordinates. 
+%   norm_rgbhist - A 512*1 vector 
+%       Normalized RGB Histogram, 
 %
 % Outputs:
 %    h - The scatter series object.
@@ -25,9 +25,10 @@ function h = scatter3_rgb(norm_rgbhist)
 % Author: Run Yu
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn 
-% Created: 01/22/2016; Last revision: 02/24/2016
+% Created: 01/22/2016; Last revision: 02/26/2016
 
 %------------- BEGIN CODE --------------
+
 %Generate the X, Y, Z coordinates in order(X changes the most fast)
 RGB_axes = [16 48 80 112 144 176 208 240];
 [Y, X, Z] = meshgrid(RGB_axes, RGB_axes, RGB_axes);

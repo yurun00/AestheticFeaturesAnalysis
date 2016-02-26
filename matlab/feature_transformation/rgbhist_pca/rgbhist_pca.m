@@ -12,11 +12,11 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 01/28/2016; Last revision: 02/25/2016
+% Created: 01/28/2016; Last revision: 02/26/2016
 
 %------------- BEGIN CODE --------------
 
-clear all; clc;
+clear; clc;
 
 addr_genre = '..\..\..\data\features\rgb_hist\genre\';
 addr_glb = '..\..\..\data\global_var\';
@@ -41,7 +41,7 @@ for i = 1:length(genres)
             rgbhist_g1 = zeros(length(rgbhist_mat_g1), 512);
             for m=1:length(rgbhist_mat_g1)
                 %Load rgbhist
-                rgbhist_in = load(strcat(addr_g1_ftr,rgbhist_mat_g1(m).name));
+                rgbhist_in = load(strcat(addr_g1_ftr, rgbhist_mat_g1(m).name));
                 rgbhist_in = rgbhist_in.rgbhist;
 
                 %Concatenate the rgbhist for PCA input
@@ -55,7 +55,7 @@ for i = 1:length(genres)
             rgbhist_g2 = zeros(length(rgbhist_mat_g2), 512);
             for m=1:length(rgbhist_mat_g2)
                 %Load rgbhist
-                rgbhist_in = load(strcat(addr_g2_ftr,rgbhist_mat_g2(m).name));
+                rgbhist_in = load(strcat(addr_g2_ftr, rgbhist_mat_g2(m).name));
                 rgbhist_in = rgbhist_in.rgbhist;
 
                 %Concatenate the rgbhist for PCA input
@@ -69,21 +69,22 @@ for i = 1:length(genres)
             % ltt(column vector): Eigenvalues in decreasing order
             [cef, scr, ltt] = pca(obs);
 
+            assert(size(ltt, 1) == 512);
             % The threshhold determines the dimension of transformed dataset
             g = zeros(512,1);
             g(1) = ltt(1);
             for k = 2:512
                 g(k) = g(k-1)+ltt(k);
             end
-            l = 0;
-            for l = 1:512
-                if(g(l)/g(512) >= 0.95)
+            L = 0;
+            for L = 1:512
+                if(g(L)/g(512) >= 0.95)
                     break;
                 end
             end
 
             % Transform original dataset to feature space(512 dimension to L dimension)
-            w = cef(:,1:l);
+            w = cef(:,1:L);
             fs_obs = obs * w;
             
             save(strcat(addr_genre,'_pca\',g1,'_',g2,'_pca_feature_space_obs.mat'),'fs_obs','grp');

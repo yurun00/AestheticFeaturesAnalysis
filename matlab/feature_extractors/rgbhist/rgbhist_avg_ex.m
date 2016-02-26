@@ -15,33 +15,33 @@
 
 %------------- BEGIN CODE --------------
 
-clear all; clc;
+clear; clc;
 
-address_feature = '..\..\..\data\features\rgb_hist\genre\';
-address_glb = '..\..\..\data\global_var\';
-genres = load([address_glb, 'genres.mat']);
+addr_feature = '..\..\..\data\features\rgb_hist\genre\';
+addr_glb = '..\..\..\data\global_var\';
+genres = load([addr_glb, 'genres.mat']);
 genres = genres.genres;
 
 for g = genres(1:end)
-    files = dir([address_feature, g{1}]);
+    files = dir([addr_feature, g{1}, '\*_rgbhist.mat']);
     avg_rgbhist = zeros(512,1);
-    for i=3:length(files)
+    for i=1:length(files)
         name_len = strfind(files(i).name,'_rgbhist.mat')-1;
         %Load rgb histograms
-        rgbhist_in = load([address_feature, g{1}, '\', ...
+        rgbhist_in = load([addr_feature, g{1}, '\', ...
             files(i).name(1:name_len), '_rgbhist.mat']);
         rgbhist_in = rgbhist_in.rgbhist;
 
         %Accumulate the rgb histograms
         avg_rgbhist = avg_rgbhist + rgbhist_in;
     end
-    avg_rgbhist = avg_rgbhist/(length(files)-2);
+    avg_rgbhist = avg_rgbhist/length(files);
     %Save RGB histogram as files
-    save([address_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist.mat'],'avg_rgbhist');
+    save([addr_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist.mat'],'avg_rgbhist');
     disp(g{1});
     %Save the rgb histogram 3D pictures
     scatter3_rgb(avg_rgbhist);
-    print([address_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist'], '-djpeg');
+    print([addr_feature, '_avg_rgbhist\', g{1}, '_avg_rgbhist'], '-djpeg');
 end
 
 %------------- END OF CODE --------------
