@@ -12,7 +12,7 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 01/28/2016; Last revision: 02/26/2016
+% Created: 01/28/2016; Last revision: 02/27/2016
 
 %------------- BEGIN CODE --------------
 
@@ -69,16 +69,16 @@ for i = 1:length(genres)
             % ltt(column vector): Eigenvalues in decreasing order
             [cef, scr, ltt] = pca(obs);
 
-            assert(size(ltt, 1) == 512);
+            egn = size(ltt, 1);
             % The threshhold determines the dimension of transformed dataset
-            g = zeros(512,1);
+            g = zeros(egn,1);
             g(1) = ltt(1);
-            for k = 2:512
+            for k = 2:egn
                 g(k) = g(k-1)+ltt(k);
             end
             L = 0;
-            for L = 1:512
-                if(g(L)/g(512) >= 0.95)
+            for L = 1:egn
+                if(g(L)/g(egn) >= 0.95)
                     break;
                 end
             end

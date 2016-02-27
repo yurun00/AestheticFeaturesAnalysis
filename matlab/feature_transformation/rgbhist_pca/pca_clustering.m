@@ -13,7 +13,7 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 02/24/2016; Last revision: 02/26/2016
+% Created: 02/24/2016; Last revision: 02/27/2016
 
 %------------- BEGIN CODE --------------
 
@@ -45,6 +45,8 @@ for i = 1:length(genres)
         end
     end
 end
+
+save([addr_genre,'_pca\','_mce_pca_clustering.mat'],'mce');
 
 %------------- END OF CODE --------------
 
