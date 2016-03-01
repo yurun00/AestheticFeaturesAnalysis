@@ -9,7 +9,7 @@ if (ndims(rgb_img) == 2)
     rgb_img = repmat(rgb_img, [1, 1, 3]);
 end
 
-rgb_img = double(rgb_img/255);
+%rgb_img = double(rgb_img);
 hsv_img = rgb2hsv(rgb_img);
 H = hsv_img(:, :, 1); % Hue image.
 S = hsv_img(:, :, 2); % Saturation image.

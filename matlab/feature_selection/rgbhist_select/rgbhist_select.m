@@ -140,8 +140,8 @@ for i = 1:mxfn
    resubMCE(i) = crossval(classf,obs(:,fs),grp,'partition',resubCVP)/...
        resubCVP.TestSize;
 end
-save(strcat(addr,'_f_sel_mce\',g1,'_',g2,'_filter_testMCE.mat'),'testMCE');
-save(strcat(addr,'_f_sel_mce\',g1,'_',g2,'_filter_resubMCE.mat'),'resubMCE');
+save(strcat(addr,'_fs_sel\',g1,'_',g2,'_filter_testMCE.mat'),'testMCE');
+save(strcat(addr,'_fs_sel\',g1,'_',g2,'_filter_resubMCE.mat'),'resubMCE');
 plot(nfs, testMCE,'o',nfs,resubMCE,'r^');
 xlabel('Number of Features');
 ylabel('MCE');
@@ -182,7 +182,7 @@ sfsMCE = historyCV.Crit;
 [~, mnfn] = min(sfsMCE);
 features = fs1(historyCV.In(mnfn,:));
 
-save(strcat(addr,'_f_sel_mce\',g1,'_',g2,'_sfs_mce_fs.mat'),'sfsMCE',features);
+save(strcat(addr,'_fs_sel\',g1,'_',g2,'_sfs_mce_fs.mat'),'sfsMCE',features);
 % Draw the plot of the cross-validation MCE as a function of the number of 
 % features.
 plot(sfsMCE,'o');
