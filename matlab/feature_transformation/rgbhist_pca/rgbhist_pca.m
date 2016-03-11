@@ -92,8 +92,4 @@ for i = 1:length(genres)
     end
 end
 
-
-
-
-
 %------------- END OF CODE --------------
