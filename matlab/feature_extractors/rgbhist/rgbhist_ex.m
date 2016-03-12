@@ -1,4 +1,4 @@
-% DESCRIPTION: This file extracts the 4D rgb histogram plots from each
+% DESCRIPTION: This file extracts the 4D rgb histogram scatters from each
 % genre directory in '..\..\..\data\paintings_classified\genre\' and save 
 % them as '.mat' files. 
 %
@@ -20,8 +20,8 @@ clear; clc;
 addr_jpg = '..\..\..\data\paintings_classified\genre\';
 addr_glb = '..\..\..\data\global_var\';
 addr_mat = '..\..\..\data\paintings_mat\';
-addr_feature = '..\..\..\data\features\rgb_hist\genre\';
-genres = load([addr_glb, 'genres.mat']);
+addr_feature = '..\..\..\data\features\rgb_hist\512d\genre\';
+genres = load([addr_glb, 'all_genres.mat']);
 genres = genres.genres;
 
 for g = genres(1:end)

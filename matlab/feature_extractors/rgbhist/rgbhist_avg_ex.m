@@ -17,9 +17,9 @@
 
 clear; clc;
 
-addr_feature = '..\..\..\data\features\rgb_hist\genre\';
+addr_feature = '..\..\..\data\features\rgb_hist\512d\genre\';
 addr_glb = '..\..\..\data\global_var\';
-genres = load([addr_glb, 'genres.mat']);
+genres = load([addr_glb, 'all_genres.mat']);
 genres = genres.genres;
 
 for g = genres(1:end)

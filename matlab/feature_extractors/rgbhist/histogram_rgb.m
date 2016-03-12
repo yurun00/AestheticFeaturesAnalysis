@@ -1,10 +1,8 @@
 function norm_RGB_hist = histogram_rgb( img )
 %HISTOGRAM_RGB - Compute the RGB histogram of an image. Each of the R,G,B
-%values are divided into 8 intervals. Return the 4D representation of the
-%histogram with RGB indicates the 3D position, and circle size indicates 
-%the amount of pixels fall in a certain interval.
+%values are divided into 8 intervals. Return the normalized RGB histogram.
 %
-% Syntax: [NORM_RGB_HIST,SCATTER_INPUT] = HISTOGRAM_RGB( IMG );
+% Syntax: NORM_RGB_HIST = HISTOGRAM_RGB( IMG );
 %
 % Inputs:
 %   img - Return of the function 'imread'.
