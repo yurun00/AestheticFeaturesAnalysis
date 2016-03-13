@@ -1,9 +1,9 @@
 function [norm_hist_R, norm_hist_G, norm_hist_B] = histograms_rgb( img )
-% HISTOGRAM_RGB - Compute the RGB histograms of an image. Each of the R,G,B
+% HISTOGRAMS_RGB - Compute the RGB histograms of images. Each of the R,G,B
 % values are divided into 8 intervals. Return the 3 histograms, each of 
 % which represents one of the red, green or blue component histograms.
 %
-% Syntax: [NORM_HIST_R, NORM_HIST_G, NORM_HIST_B] = HISTOGRAM_RGB( IMG );
+% Syntax: [NORM_HIST_R, NORM_HIST_G, NORM_HIST_B] = HISTOGRAMS_RGB( IMG );
 %
 % Inputs:
 %   img - Return of the function 'imread'.
@@ -13,7 +13,7 @@ function [norm_hist_R, norm_hist_G, norm_hist_B] = histograms_rgb( img )
 %   norm_hist_G - Normalized green histogram vector.
 %   norm_hist_B - Normalized blue histogram vector.
 %
-% Other m-files required: none
+% Other m-files required: histnd.m
 % Subfunctions: none
 % MAT-files required: none
 %
@@ -22,7 +22,7 @@ function [norm_hist_R, norm_hist_G, norm_hist_B] = histograms_rgb( img )
 % Author: Run Yu
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/12/2016; Last revision: 03/12/2016
+% Created: 03/12/2016; Last revision: 03/13/2016
 
 %------------- BEGIN CODE --------------
 

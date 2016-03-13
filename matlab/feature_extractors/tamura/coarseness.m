@@ -1,4 +1,4 @@
-%graypic为待处理的灰度图片，2^kmax为最大窗口
+% graypic为待处理的灰度图片，2^kmax为最大窗口
 function Fcrs=coarseness(graypic)
 
 kmax=4;

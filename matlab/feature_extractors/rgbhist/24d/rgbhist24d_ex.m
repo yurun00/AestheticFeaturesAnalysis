@@ -1,9 +1,9 @@
-% DESCRIPTION: This file extracts the rgb histograms scatters from each
-% genre directory in '..\..\..\data\paintings_classified\genre\' and save 
-% them as '.mat' files. The rgb histograms are three histograms indicate
-% the red, green and blue component seperately.
+% DESCRIPTION: This file extracts the rgb histograms of all paintings in
+% directory '..\..\..\data\paintings_mat' and save them as '.mat' files. 
+% The rgb histograms are three histograms indicate the red, green and blue 
+% component seperately.
 %
-% Other m-files required: none
+% Other m-files required: histograms_rgb.m
 % Subfunctions: none
 % MAT-files required: none
 %

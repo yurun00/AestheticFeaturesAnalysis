@@ -1,6 +1,6 @@
 *.jpg
 test/
-data/paintings_mat
 data/paintings
 data/paintings_classified
+data/paintings_mat
 *.asv
