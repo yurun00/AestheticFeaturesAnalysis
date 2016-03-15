@@ -31,12 +31,15 @@ all_genres = dir(addr_genres);
 all_genres = {all_genres(3:end).name};
 save([addr_sv, 'all_genres.mat'], 'all_genres');
 
-% Save file names of all genres
+% Save files' names of all genres
 genre_files = {};
 i = 1;
 for g = all_genres(1:end)
     files = dir([addr_genres, g{1}]);
     files = {files(3:end).name};
+    for j = 1:length(files)
+        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
+    end
     genre_files{i} = files;
     i = i+1;
 end
@@ -51,12 +54,15 @@ all_styles = {all_styles(3:end).name};
 all_styles = {'Cubism', 'Impressionism', 'Realism', 'Expressionism', 'Romanticism'};
 save([addr_sv, 'all_styles.mat'], 'all_styles');
 
-% Save file names of all styles
+% Save files' names of all styles
 style_files = {};
 i = 1;
 for s = all_styles(1:end)
     files = dir([addr_styles, s{1}]);
     files = {files(3:end).name};
+    for j = 1:length(files)
+        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
+    end
     style_files{i} = files;
     i = i+1;
 end
@@ -69,12 +75,15 @@ all_artists = dir(addr_artists);
 all_artists = {all_artists(3:end).name};
 save([addr_sv, 'all_artists.mat'], 'all_artists');
 
-% Save file names of all artists
+% Save files' names of all artists
 artist_files = {};
 i = 1;
 for a = all_artists(1:end)
     files = dir([addr_artists, a{1}]);
     files = {files(3:end).name};
+    for j = 1:length(files)
+        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
+    end
     artist_files{i} = files;
     i = i+1;
 end

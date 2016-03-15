@@ -1,5 +1,11 @@
-addr_jpg = '..\..\..\test\data\edge\machine.png';
-img = imread(addr_jpg);
+% addr = '..\..\..\test\data\edge\machine.png';
+% addr = '..\..\..\test\data\edge\flag.jpg';
+% addr = '..\..\..\test\data\edge\the-cliff.jpg';
+% addr = '..\..\..\data\paintings_classified\style\Symbolism\midday-silence-1924.jpg';
+addr = '..\..\..\data\paintings_classified\style\Synthetic-Cubism\harlequin-1915.jpg';
+% addr = '..\..\..\data\paintings_classified\style\Impressionism\algiers-the-garden-of-essai-1881.jpg';
+% addr = '..\..\..\test\data\rgb_hsv\a-nook-of-old-yerevan-1928.jpg';
+img = imread(addr);
 gimg = rgb2gray(img);
 thresh = [.2,.3,.4,.6];
 % By default for canny edge detector, low threshold = high threshold * 0.4
@@ -13,25 +19,29 @@ thresh = [.2,.3,.4,.6];
 % [bimg3, thresh3, ratio3] = edge_ratio(gimg, [thresh(3)*0, thresh(3)]);
 % [bimg4, thresh4, ratio4] = edge_ratio(gimg, [thresh(4)*0, thresh(4)]);
 
-f = figure(1);
-set(f, 'Position', [200,100,1000,500]);
-
-sp1 = subplot(2,3,1);
+f1 = figure(1);
+set(f1, 'Position',  [500,400,400,200]);
 imshow(gimg);
-set(sp1,'Position',[0.025,0.55,0.3,0.3]);
 
-sp2 = subplot(2,3,2);
+
+f2 = figure(2);
+set(f2, 'Position', [20,60,1300,600]);
+
+sp1 = subplot(2,2,1);
 imshow(bimg1);
-set(sp2,'Position',[0.35,0.55,0.3,0.3]);
+set(sp1,'Position',[0.03,0,0.45,1]);
 
-sp3 = subplot(2,3,3);
+sp2 = subplot(2,2,2);
 imshow(bimg2);
-set(sp3,'Position',[0.675,0.55,0.3,0.3]);
+set(sp2,'Position',[0.52,0,0.45,1]);
 
-sp4 = subplot(2,3,4);
+f3 = figure(3);
+set(f3, 'Position', [20,60,1300,600]);
+
+sp3 = subplot(2,2,3);
 imshow(bimg3);
-set(sp4,'Position',[0.025,0.15,0.3,0.3]);
+set(sp3,'Position',[0.03,0,0.45,1]);
 
-sp5 = subplot(2,3,5);
+sp4 = subplot(2,2,4);
 imshow(bimg4);
-set(sp5,'Position',[0.35,0.15,0.3,0.3]);
+set(sp4,'Position',[0.52,0,0.45,1]);

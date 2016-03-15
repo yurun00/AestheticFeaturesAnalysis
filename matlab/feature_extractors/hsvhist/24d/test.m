@@ -1,5 +1,6 @@
 % addr_jpg = '..\..\..\..\test\data\rgb_hsv\red.jpg';
-addr_jpg = '..\..\..\..\test\data\rgb_hsv\canal-near-brussels-1871.jpg';
+% addr_jpg = '..\..\..\..\test\data\rgb_hsv\canal-near-brussels-1871.jpg';
+addr_jpg = '..\..\..\..\test\data\rgb_hsv\a-nook-of-old-yerevan-1928.jpg';
 img = imread(addr_jpg);
 [nh_h,nh_s,nh_v] = histograms_hsv(img);
 xmx = numel(nh_h) + 1;
