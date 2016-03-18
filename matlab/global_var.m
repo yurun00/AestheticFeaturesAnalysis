@@ -9,86 +9,64 @@
 % Author: Run Yu
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn 
-% Created: 02/25/2016; Last revision: 02/25/2016
+% Created: 02/25/2016; Last revision: 03/17/2016
 
 %------------- BEGIN CODE --------------
 
+clear;clc;
+addr = '..\data\'; 
 addr_sv = '..\data\global_var\';
 
 % Save all paintings names
-addr_paintings = '..\data\paintings_mat\';
-paintings = dir(addr_paintings);
-paintings = {paintings(3:end).name};
+[~,~,raw] = xlsread([addr, 'paintings.xlsx']);
+paintings = raw(:,1);
 for i = 1:length(paintings)
-    paintings{i} = paintings{i}(1:strfind(paintings{i},'.mat')-1);
+    paintings{i} = paintings{i}(1:strfind(paintings{i},'.jpg')-1);
 end
 save([addr_sv, 'paintings.mat'], 'paintings');
 
-
 % Save all genres
-addr_genres = '..\data\paintings_classified\genre\';
-all_genres = dir(addr_genres);
-all_genres = {all_genres(3:end).name};
+[~,~,raw] = xlsread([addr, 'paintings_genre.xlsx']);
+genres = raw(:,1);
+files = raw(:,2);
+all_genres = unique(genres);
 save([addr_sv, 'all_genres.mat'], 'all_genres');
-
-% Save files' names of all genres
-genre_files = {};
-i = 1;
-for g = all_genres(1:end)
-    files = dir([addr_genres, g{1}]);
-    files = {files(3:end).name};
-    for j = 1:length(files)
-        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
+% Extract files' names of each genre
+genre_files = cell(length(all_genres),1);
+for i = 1:length(files)
+    t = cellfun(@(s)strcmp(genres{i},s),all_genres','UniformOutput', false);
+    idx = find(cell2mat(t) == 1);
+    genre_files{idx}{end+1} = files{i}(1:strfind(files{i},'.jpg')-1); 
+end
+% Choose 120 samples of each genre
+for i = 1:length(all_genres)
+    if(length(genre_files{i}) > 120)
+        genre_files{i} = datasample(genre_files{i},120, 'replace', false)
     end
-    genre_files{i} = files;
-    i = i+1;
 end
 paintings_by_genre = containers.Map(all_genres, genre_files);
 save([addr_sv, 'paintings_by_genre.mat'], 'paintings_by_genre');
 
 % Save all styles
-addr_styles = '..\data\paintings_classified\style\'; 
-all_styles = dir(addr_styles);
-all_styles = {all_styles(3:end).name};
-% Choose some styles
-all_styles = {'Cubism', 'Impressionism', 'Realism', 'Expressionism', 'Romanticism'};
+[~,~,raw] = xlsread([addr, 'paintings_style.xlsx']);
+styles = raw(:,1);
+files = raw(:,2);
+all_styles = unique(styles);
 save([addr_sv, 'all_styles.mat'], 'all_styles');
-
-% Save files' names of all styles
-style_files = {};
-i = 1;
-for s = all_styles(1:end)
-    files = dir([addr_styles, s{1}]);
-    files = {files(3:end).name};
-    for j = 1:length(files)
-        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
+% Extract files' names of each style
+style_files = cell(length(all_styles),1);
+for i = 1:length(files)
+    t = cellfun(@(s)strcmp(styles{i},s),all_styles','UniformOutput', false);
+    idx = find(cell2mat(t) == 1);
+    style_files{idx}{end+1} = files{i}(1:strfind(files{i},'.jpg')-1); 
+end
+% Choose 120 samples of each style
+for i = 1:length(all_styles)
+    if(length(style_files{i}) > 120)
+        style_files{i} = datasample(style_files{i},120, 'replace', false)
     end
-    style_files{i} = files;
-    i = i+1;
 end
 paintings_by_style = containers.Map(all_styles, style_files);
 save([addr_sv, 'paintings_by_style.mat'], 'paintings_by_style');
-
-% Save all artists
-addr_artists = '..\data\paintings_classified\artist\'; 
-all_artists = dir(addr_artists);
-all_artists = {all_artists(3:end).name};
-save([addr_sv, 'all_artists.mat'], 'all_artists');
-
-% Save files' names of all artists
-artist_files = {};
-i = 1;
-for a = all_artists(1:end)
-    files = dir([addr_artists, a{1}]);
-    files = {files(3:end).name};
-    for j = 1:length(files)
-        files{j} = files{j}(1:strfind(files{j},'.jpg')-1);
-    end
-    artist_files{i} = files;
-    i = i+1;
-end
-paintings_by_artist = containers.Map(all_artists, artist_files);
-save([addr_sv, 'paintings_by_artist.mat'], 'paintings_by_artist');
-
 
 %------------- END OF CODE --------------

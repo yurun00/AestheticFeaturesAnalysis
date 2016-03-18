@@ -1,0 +1,7 @@
+At first, there were folder 'oil_used', 'wikipaintings.xlsx', 'wikipaintings_genre.xlsx', 'wikipaintings_style.xlsx' which contain information about dataset, paintings' names, paintings' genres and paintings'styles. But the paintings' dataset in 'oil_used' does not match that in 'wikipaintings.xlsx'. So I extracted the directory of 'oil_used' and exported it to 'oil_used.xlsx'. 
+
+Then I chose those paintings which exist in 'oil_used.xlsx' and 'wikipaintings.xlsx' simultaneously and exported their information to 'paintings.xlsx', 'paintings_genre.xlsx', 'paintings_style.xlsx'. 
+
+However, when I extratcted the RGB image data with matlab command 'imread', some images caused error. The line numbers of those images' names in 'paintings.xlsx' are 1230, 1361, 1716, 8860, 10216. So I download these paintings from other website and save all the image data as '.mat' files.
+
+The numbers of samples for each genre or style are too large to perform well on the machine. So I selected 120 samples for each genre and style randomly and save them in the folder global_var.

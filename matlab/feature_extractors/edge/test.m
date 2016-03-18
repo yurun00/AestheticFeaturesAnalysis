@@ -1,10 +1,4 @@
-% addr = '..\..\..\test\data\edge\machine.png';
-% addr = '..\..\..\test\data\edge\flag.jpg';
-% addr = '..\..\..\test\data\edge\the-cliff.jpg';
-% addr = '..\..\..\data\paintings_classified\style\Symbolism\midday-silence-1924.jpg';
-addr = '..\..\..\data\paintings_classified\style\Synthetic-Cubism\harlequin-1915.jpg';
-% addr = '..\..\..\data\paintings_classified\style\Impressionism\algiers-the-garden-of-essai-1881.jpg';
-% addr = '..\..\..\test\data\rgb_hsv\a-nook-of-old-yerevan-1928.jpg';
+addr = '..\..\..\test\data\edge\machine.png';
 img = imread(addr);
 gimg = rgb2gray(img);
 thresh = [.2,.3,.4,.6];
