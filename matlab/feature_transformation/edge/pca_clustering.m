@@ -30,12 +30,12 @@ for i = 1:length(styles)
         if(i < j)
             s1 = styles{i};
             s2 = styles{j};
-            
+            addr_file = [addr_pca,s1,'_',s2,'_pca.mat'];
             % Load observations in the feature space and group variable
-            fs_grp_in = load([addr_pca,s1,'_',s2,'_pca.mat']);
+            fs_grp_in = load(addr_file);
             fs_obs_in = fs_grp_in.fs_obs;
             grp_in = fs_grp_in.grp;
-            
+
             % Hierarchical clustering
             Z = linkage(fs_obs_in,'ward','euclidean');
             c = cluster(Z,'maxclust',2);
