@@ -30,15 +30,21 @@ save([addr_sv, 'paintings.mat'], 'paintings');
 genres = raw(:,1);
 files = raw(:,2);
 all_genres = unique(genres);
+
 % Extract files' names of each genre
 genre_files = cell(length(all_genres),1);
-for i = 1:length(files)
+for i = 1:length(files)    
+    % Image files larger than 1MB is discarded
+    if(getfield(imfinfo([addr,'oil_used\',files{i}]),'FileSize') > 1048576)
+        continue;
+    end
+    
     t = cellfun(@(s)strcmp(genres{i},s),all_genres','UniformOutput', false);
     idx = find(cell2mat(t) == 1);
     genre_files{idx}{end+1} = files{i}(1:strfind(files{i},'.jpg')-1); 
 end
-% Choose 120 samples from each genre and filt genres with insufficient
-% samples
+
+% Choose 120 samples from each genre 
 del_genres = [];
 for i = 1:length(all_genres)
     if(length(genre_files{i}) > 120)
@@ -49,26 +55,35 @@ for i = 1:length(all_genres)
         end
     end
 end
+
+% Filt genres with insufficient samples(less than 100)
 all_genres(del_genres) = [];
 genre_files(del_genres) = [];
+
 paintings_by_genre = containers.Map(all_genres, genre_files);
 save([addr_sv, 'all_genres.mat'], 'all_genres');
 save([addr_sv, 'paintings_by_genre.mat'], 'paintings_by_genre');
+
 
 % Extract all styles
 [~,~,raw] = xlsread([addr, 'paintings_style.xlsx']);
 styles = raw(:,1);
 files = raw(:,2);
 all_styles = unique(styles);
+
 % Extract files' names of each style
 style_files = cell(length(all_styles),1);
 for i = 1:length(files)
+    % Image files larger than 1MB is discarded
+    if(getfield(imfinfo([addr,'oil_used\',files{i}]),'FileSize') > 1048576)
+        continue;
+    end
     t = cellfun(@(s)strcmp(styles{i},s),all_styles','UniformOutput', false);
     idx = find(cell2mat(t) == 1);
     style_files{idx}{end+1} = files{i}(1:strfind(files{i},'.jpg')-1); 
 end
-% Choose 120 samples of each style and filt styles with insufficient
-% samples
+
+% Choose 120 samples of each style 
 del_styles = [];
 for i = 1:length(all_styles)
     if(length(style_files{i}) > 120)
@@ -79,8 +94,11 @@ for i = 1:length(all_styles)
         end
     end
 end
+
+% Filt styles with insufficient samples
 all_styles(del_styles) = [];
 style_files(del_styles) = [];
+
 paintings_by_style = containers.Map(all_styles, style_files);
 save([addr_sv, 'all_styles.mat'], 'all_styles');
 save([addr_sv, 'paintings_by_style.mat'], 'paintings_by_style');

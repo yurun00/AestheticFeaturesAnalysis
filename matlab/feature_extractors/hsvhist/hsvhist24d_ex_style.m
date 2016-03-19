@@ -29,6 +29,9 @@ paintings = [paintings{:}];
 
 mkdir([addr_feature, 'features_style\']);
 for i = 1:length(paintings)
+    if(exist([addr_feature, 'features_style\', paintings{i} , '_hsv_hist24d.mat'],'file'))
+        continue;
+    end
     % Load image
     img_in = load([addr_mat, paintings{i}, '.mat']);
     img_in = img_in.img;

@@ -33,13 +33,22 @@ paintings = [paintings{:}];
 mkdir([addr_feature, 'features_style\']);
 thresh = [.2,.3,.4,.6];
 for i = 1:length(paintings)
+    if(exist([addr_feature, 'features_style\', paintings{i} , '_edge_ratio.mat'],'file'))
+        continue;
+    end
 %     paintings{i} = paintings{i}(1:strfind(paintings{i},'.jpg')-1);
     % Load image
     img_in = load([addr_mat, paintings{i}, '.mat']);
     img_in = img_in.img;
-
-    % Compute the edge pixel ratios
+    
+    % Check the dimension of the input image
+    if (ndims(img_in) == 2)
+        disp('dim is 2');
+        img_in = repmat(img_in, [1, 1, 3]);
+    end
     gimg = rgb2gray(img_in);
+    
+    % Compute the edge pixel ratios
     ratios = zeros(4,1);
     [~, ~, ratios(1)] = canny(gimg, thresh(1));
     [~, ~, ratios(2)] = canny(gimg, thresh(2));
