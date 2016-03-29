@@ -4,3 +4,4 @@ data/paintings
 data/paintings_classified
 data/paintings_mat
 *.asv
+data/features/tamura/perpixel_features_style

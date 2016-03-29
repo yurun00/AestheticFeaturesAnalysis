@@ -36,13 +36,13 @@ if (ndims(img) == 2)
 end
 
 hsv_img = rgb2hsv(img);
-% Get the R, G, B vectors
+% Get the H, S, V vectors
 H = hsv_img(:, :, 1); % Hue image.
 S = hsv_img(:, :, 2); % Saturation image.
 V = hsv_img(:, :, 3); % Value (intensity) image.
 H = H(:); S = S(:); V = V(:);
 
-% Use 'histnd' to compute the RGB histogram
+% Use 'histnd' to compute the HSV histogram
 HSV_hist = histnd(...
         [H(~isnan(H)) S(~isnan(S)) V(~isnan(V))], ...
         [-inf 1 2 3 4 5 6 7 inf]/8, ...
@@ -63,7 +63,7 @@ for i = 1:8
     hist_V(i) = sum(v(:));
 end
 
-% Nomalize the RGB histograms 
+% Nomalize the HSV histograms 
 norm_hist_H = hist_H ./numel(H);
 norm_hist_S = hist_S ./numel(S);
 norm_hist_V = hist_V ./numel(V);
