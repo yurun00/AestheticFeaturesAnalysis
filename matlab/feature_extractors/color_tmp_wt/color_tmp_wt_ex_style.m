@@ -20,7 +20,7 @@ clear; clc;
 
 addr_glb = '..\..\..\data\global_var\';
 addr_mat = '..\..\..\data\paintings_mat\';
-addr_feature = '..\..\..\data\features\edge\';
+addr_feature = '..\..\..\data\features\color_tmp_wt\';
 
 paintings_by_style = load([addr_glb, 'paintings_by_style.mat']);
 paintings_by_style = paintings_by_style.paintings_by_style;
@@ -30,30 +30,23 @@ paintings = [paintings{:}];
 mkdir([addr_feature, 'features_style\']);
 thresh = [.2,.3,.4,.6];
 for i = 1:length(paintings)
-%     if(exist([addr_feature, 'features_style\', paintings{i} , '_edge_ratio.mat'],'file'))
-%         continue;
-%     end
-%     paintings{i} = paintings{i}(1:strfind(paintings{i},'.jpg')-1);
+    if(exist([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat'],'file'))
+        continue;
+    end
     % Load image
-    img_in = load([addr_mat, paintings{i}, '.mat']);
-    img_in = img_in.img;
+    load([addr_mat, paintings{i}, '.mat']);
     
     % Check the dimension of the input image
-    if (ndims(img_in) == 2)
+    if (ndims(img) == 2)
         disp('dim is 2');
-        img_in = repmat(img_in, [1, 1, 3]);
+        img = repmat(img, [1, 1, 3]);
     end
-    gimg = rgb2gray(img_in);
     
-    % Compute the edge pixel ratios
-    ratios = zeros(4,1);
-    [~, ~, ratios(1)] = canny(gimg, thresh(1));
-    [~, ~, ratios(2)] = canny(gimg, thresh(2));
-    [~, ~, ratios(3)] = canny(gimg, thresh(3));
-    [~, ~, ratios(4)] = canny(gimg, thresh(4));
+    % Compute the color temperature and weight
+    [tmp, wt] = color_tmp_wt(img);
 
-    % Save edge pixel ratios as files
-    save([addr_feature, 'features_style\', paintings{i} , '_edge_ratio.mat'], 'ratios');
+    % Save color temperature and weight as files
+    save([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat'], 'tmp', 'wt');
     disp(i);
 end
 

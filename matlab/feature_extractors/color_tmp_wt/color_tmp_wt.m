@@ -1,5 +1,6 @@
 function [temperature, weight] = color_tmp_wt( img)
-% COLOR_TMP_WT - Calculate the color temperature and weight of the RGB image.
+% COLOR_TMP_WT - Calculate the color temperature and weight of the RGB 
+% image.
 %
 % Syntax: [TEMPERATURE, WEIGHT] = COLOR_TMP_WT( IMG );
 %
@@ -8,11 +9,11 @@ function [temperature, weight] = color_tmp_wt( img)
 %
 % Outputs:
 %   temperature     - The visual temperature feature of the image 
-%       This is a four dimensional vector with the first element represents
+%       This is a five dimensional vector with the first element represents
 %       the glocal visual temperature feature and the others represent 
 %       local features of the segmented image regions.
 %   weight          - The visual weight feature of the image 
-%       This is a four dimensional vector with the first element represents
+%       This is a five dimensional vector with the first element represents
 %       the glocal visual wieght feature and the others represent local 
 %       features of the segmented image regions.
 %
@@ -46,24 +47,49 @@ lch_img = applycform(lab_img, cform);
 
 % Get the L, C, H vectors
 L = lch_img(:, :, 1); % Lightness image.
-C = lch_img(:, :, 2); % Chroma (Saturation) image.
+% C = lch_img(:, :, 2); % Chroma (Saturation) image.
 H = lch_img(:, :, 3); % Hue image.
-seg_img = lch_img;
-seg_img(:,:,1) = 100;
-seg_img(:,:,2) = sqrt(2)*128;
-seg_img(:,:,3) = zeros(size(H)) + ((H >= 45) + (H < 135) - 1) * 90 + ...
-    ((H >= 135) + (H < 225) - 1) * 270 + ...
-    ((H >= 225) + (H < 315) - 1) * 270;
+% seg_img = lch_img;
+% seg_img(:,:,1) = 100;
+% seg_img(:,:,2) = 100;% sqrt(2)*128;
 % seg_img(:,:,3) = ((H >= 0) + (H < 120) - 1) * 60 + ...
 %     ((H >= 120) + (H < 240) - 1) * 180 + ...
 %     ((H >= 240) + (H < 360) - 1) * 300;
-cform = makecform('lch2lab');
-seg_img = applycform(seg_img, cform);
-imshow(lab2rgb(seg_img));
 
+% Four local regions
+seg_img = zeros(size(H)) + ((H >= 45) + (H < 135) - 1) * 90 + ...
+    ((H >= 135) + (H < 225) - 1) * 180 + ...
+    ((H >= 225) + (H < 315) - 1) * 270;
 
-temperature = 0;
-weight = 0;
+% Show the segmented image
+% cform = makecform('lch2lab');
+% seg_img = applycform(seg_img, cform);
+% imshow(lab2rgb(seg_img));
+
+global_tmp = arrayfun(@hue_tmp, H);
+seg1_tmp = global_tmp; seg1_tmp(seg_img ~= 0) = 0;
+seg2_tmp = global_tmp; seg2_tmp(seg_img ~= 90) = 0;
+seg3_tmp = global_tmp; seg3_tmp(seg_img ~= 180) = 0;
+seg4_tmp = global_tmp; seg4_tmp(seg_img ~= 270) = 0;
+
+temperature = zeros(5,1);
+temperature(1) = sum(sum(global_tmp))/numel(global_tmp);
+temperature(2) = sum(sum(seg1_tmp))/sum(sum(seg_img == 0));
+temperature(3) = sum(sum(seg2_tmp))/sum(sum(seg_img == 90));
+temperature(4) = sum(sum(seg3_tmp))/sum(sum(seg_img == 180));
+temperature(5) = sum(sum(seg4_tmp))/sum(sum(seg_img == 270));
+
+global_wt = arrayfun(@col_wt, H, L);
+seg1_wt = global_wt; seg1_wt(seg_img ~= 0) = 0;
+seg2_wt = global_wt; seg2_wt(seg_img ~= 90) = 0;
+seg3_wt = global_wt; seg3_wt(seg_img ~= 180) = 0;
+seg4_wt = global_wt; seg4_wt(seg_img ~= 270) = 0;
+weight = zeros(5,1);
+weight(1) = sum(sum(global_wt))/numel(global_wt);
+weight(2) = sum(sum(seg1_wt))/sum(sum(seg_img == 0));
+weight(3) = sum(sum(seg2_wt))/sum(sum(seg_img == 90));
+weight(4) = sum(sum(seg3_wt))/sum(sum(seg_img == 180));
+weight(5) = sum(sum(seg4_wt))/sum(sum(seg_img == 270));
 
 %------------- END OF CODE --------------
 end

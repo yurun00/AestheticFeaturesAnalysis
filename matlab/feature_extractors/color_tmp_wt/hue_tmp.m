@@ -1,10 +1,12 @@
-function hts = hue_tmp( hue)
+function hts = hue_tmp( hue )
+
 
 % Wavelength of color spectrum range red, orange, yellow, green, blue and
 % purple
 wavelen1 = [620, 590, 570, 495, 450, 380, 620];
 wavelen2 = [750, 620, 590, 570, 495, 450, 750];
 colrange = [0,20,50,80,165,255,300,360];
+
 k = min(wavelen1);
 d = max(wavelen2)-min(wavelen1);
 j = find(colrange > hue, 1 );

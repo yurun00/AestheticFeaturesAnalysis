@@ -1,5 +1,5 @@
-% DESCRIPTION: This file applies clustering analysis on the dataset of edge
-% pixel ratio features transformed by PCA of two styles. 
+% DESCRIPTION: This file applies clustering analysis on the dataset of 
+% tamura feature histograms transformed by PCA of two styles. 
 % The misclassification error is used as the metric to describe the 
 % diversity between two genres. 
 %
@@ -13,13 +13,13 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 03/17/2016; Last revision: 03/17/2016
+% Created: 03/29/2016; Last revision: 03/29/2016
 
 %------------- BEGIN CODE --------------
 
 clear; clc;
 
-addr_pca = '..\..\..\data\features\edge\pca_by_style\';
+addr_pca = '..\..\..\data\features\tamura\pca_by_style\';
 addr_glb = '..\..\..\data\global_var\';
 styles = load([addr_glb, 'all_styles.mat']);
 styles = styles.all_styles;
