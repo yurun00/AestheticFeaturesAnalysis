@@ -41,9 +41,10 @@ end
 
 % -----Segment the image-----
 % Convert RGB to LCH
-lab_img = rgb2lab(img);
-cform = makecform('lab2lch');
-lch_img = applycform(lab_img, cform);
+% lab_img = rgb2lab(img);
+% cform = makecform('lab2lch');
+% lch_img = applycform(lab_img, cform);
+lch_img = colorspace('RGB->LCH',img);
 
 % Get the L, C, H vectors
 L = lch_img(:, :, 1); % Lightness image.
@@ -74,10 +75,26 @@ seg4_tmp = global_tmp; seg4_tmp(seg_img ~= 270) = 0;
 
 temperature = zeros(5,1);
 temperature(1) = sum(sum(global_tmp))/numel(global_tmp);
-temperature(2) = sum(sum(seg1_tmp))/sum(sum(seg_img == 0));
-temperature(3) = sum(sum(seg2_tmp))/sum(sum(seg_img == 90));
-temperature(4) = sum(sum(seg3_tmp))/sum(sum(seg_img == 180));
-temperature(5) = sum(sum(seg4_tmp))/sum(sum(seg_img == 270));
+if(sum(sum(seg_img == 0)) == 0)
+    temperature(2) = 0;
+else
+    temperature(2) = sum(sum(seg1_tmp))/sum(sum(seg_img == 0));
+end
+if(sum(sum(seg_img == 90)) == 0)
+    temperature(3) = 0;
+else
+    temperature(3) = sum(sum(seg2_tmp))/sum(sum(seg_img == 90));
+end
+if(sum(sum(seg_img == 180)) == 0)
+    temperature(4) = 0;
+else
+    temperature(4) = sum(sum(seg3_tmp))/sum(sum(seg_img == 180));
+end
+if(sum(sum(seg_img == 270)) == 0)
+    temperature(5) = 0;
+else
+    temperature(5) = sum(sum(seg4_tmp))/sum(sum(seg_img == 270));
+end
 
 global_wt = arrayfun(@col_wt, H, L);
 seg1_wt = global_wt; seg1_wt(seg_img ~= 0) = 0;
@@ -86,11 +103,26 @@ seg3_wt = global_wt; seg3_wt(seg_img ~= 180) = 0;
 seg4_wt = global_wt; seg4_wt(seg_img ~= 270) = 0;
 weight = zeros(5,1);
 weight(1) = sum(sum(global_wt))/numel(global_wt);
-weight(2) = sum(sum(seg1_wt))/sum(sum(seg_img == 0));
-weight(3) = sum(sum(seg2_wt))/sum(sum(seg_img == 90));
-weight(4) = sum(sum(seg3_wt))/sum(sum(seg_img == 180));
-weight(5) = sum(sum(seg4_wt))/sum(sum(seg_img == 270));
+if(sum(sum(seg_img == 0)) == 0)
+    weight(2) = 0;
+else
+    weight(2) = sum(sum(seg1_wt))/sum(sum(seg_img == 0));
+end
+if(sum(sum(seg_img == 90)) == 0)
+    weight(3) = 0;
+else
+    weight(3) = sum(sum(seg2_wt))/sum(sum(seg_img == 90));
+end
+if(sum(sum(seg_img == 180)) == 0)
+    weight(4) = 0;
+else
+    weight(4) = sum(sum(seg3_wt))/sum(sum(seg_img == 180));
+end
+if(sum(sum(seg_img == 270)) == 0)
+    weight(5) = 0;
+else
+    weight(5) = sum(sum(seg4_wt))/sum(sum(seg_img == 270));
+end
 
 %------------- END OF CODE --------------
 end
-

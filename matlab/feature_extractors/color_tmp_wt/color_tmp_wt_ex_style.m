@@ -31,7 +31,11 @@ mkdir([addr_feature, 'features_style\']);
 thresh = [.2,.3,.4,.6];
 for i = 1:length(paintings)
     if(exist([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat'],'file'))
-        continue;
+        load([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat']);
+        if(sum(isnan(tmp)) == 0 && sum(isnan(wt)) == 0)
+            disp(i);
+            continue;
+        end
     end
     % Load image
     load([addr_mat, paintings{i}, '.mat']);

@@ -1,10 +1,11 @@
 function [bimg, threshs, ratio] = canny( gimg, thresh)
 % CANNY - Find edges in intensity image with canny edge detector. The 
 % function takes an intensity image I as its input, and returns a binary 
-% image bimg of the same size as I, with 1's where the function finds edges
-% in I and 0's elsewhere, a 1x2 vector as thresholds, a float value ratio
-% as the number of pixels that are labeled as an edge relative to the total
-% number of pixels in the intensity image.
+% image |bimg| of the same size as I, with 1's where the function finds 
+% edges in I and 0's elsewhere, a 1x2 vector |threshs| to store the real 
+% thresholds, a float value |ratio| to store the number of pixels that are 
+% labeled as an edge relative to the total number of pixels in the 
+% intensity image.
 %
 % Syntax: [BIMG, THRESHS, RATIO] = CANNY( GIMG, THRESH );
 %
