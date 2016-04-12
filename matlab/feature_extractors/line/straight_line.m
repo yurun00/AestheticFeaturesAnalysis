@@ -54,6 +54,7 @@ lines = houghlines(BW,T,R,P,'FillGap',3,'MinLength',10);
 distance = zeros(1,size(lines,2));
 slope = zeros(1,size(lines,2));
 hough_ratio = 0;
+long_ratio = 0;
 mean_length = 0;
 std_length = 0;
 % std_slope = 0;
@@ -66,16 +67,20 @@ if (~isempty(fieldnames(lines)))
         distance(1,k) = norm(lines(k).point1 - lines(k).point2);
         slope(1,k) = abs(lines(k).theta/90);   
     end
-    hough_ratio = sum(distance)/sum(sum(BW));
-    mean_length = mean(distance)/sum(sum(BW));
+    area = size(BW,1)*size(BW,2);
+    hough_ratio = sum(distance)/area;
+    long_ratio = sum(sum(distance > 70))/size(distance,2);
+    distance = distance./max(size(BW,1),size(BW,2));
+    mean_length = mean(distance);
     std_length = std(distance);
 %     std_slope = std(slope);
 end
-line_features = zeros(4,1);
+line_features = zeros(5,1);
 line_features(1) = hough_ratio;
-line_features(2) = mean_length;
-line_features(3) = std_length;
-line_features(4) = max(distance);
+line_features(2) = long_ratio;
+line_features(3) = mean_length;
+line_features(4) = std_length;
+line_features(5) = max(distance);
 % line_features(5) = std_slope;
 
 

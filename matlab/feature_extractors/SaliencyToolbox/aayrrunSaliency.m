@@ -23,7 +23,7 @@
 % More information about this project is available at: 
 % http://www.saliencytoolbox.net
 
-function [salmap,fixations,shapes] = runSaliency(inputImage,numFixations,varargin)
+function [salmap,fixations,shapes] = aayrrunSaliency(inputImage,numFixations,varargin)
 
 declareGlobal;
 
@@ -58,10 +58,10 @@ if (numFixations > 0)
   % initialize the winner-take-all network
   wta = initializeWTA(salmap,params);
   
-%   % display the input image
-%   imgFig = showImage(img);
-%   shapeFig = -1;
-%   lastWinner = [-1,-1];
+  % display the input image
+  imgFig = showImage(img);
+  shapeFig = -1;
+  lastWinner = [-1,-1];
 
   
   % loop over the fixations
@@ -77,19 +77,19 @@ if (numFixations > 0)
     
     % run the shape estimator to get proro-objects
     shapeData = estimateShape(salmap,salData,winner,params);
-    shapes(fix,:) = im2bw(shapeData.shapeMap.data,0);
+    shapes(fix,:,:) = im2bw(shapeData.shapeMap.data,0);
     
     % trigger inhibition of return
     wta = applyIOR(wta,winner,params,shapeData);
       
-%     % convert the winner's location to image coordinates
-%     win2 = winnerToImgCoords(winner,params);
+    % convert the winner's location to image coordinates
+    win2 = winnerToImgCoords(winner,params);
       
-%     % plot the currently attended region into the image figure
-%     figure(imgFig);
-%     plotSalientLocation(win2,lastWinner,img,params,shapeData);
+    % plot the currently attended region into the image figure
+    figure(imgFig);
+    plotSalientLocation(win2,lastWinner,img,params,shapeData);
     
-%     lastWinner = win2;
+    lastWinner = win2;
       
     % convert the winner to image coordinates
     fixations(fix,:) = winnerToImgCoords(winner,params);

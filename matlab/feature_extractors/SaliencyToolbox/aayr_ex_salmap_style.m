@@ -5,7 +5,7 @@
 % from http://www.saliencytoolbox.net/. The saliency maps will be 
 % extracted. Then the shapes of the most saliency locations will be stored.
 
-% Other m-files required: none
+% Other m-files required: aayrrunSaliency.m
 % Subfunctions: none
 % MAT-files required: none
 %
@@ -14,7 +14,7 @@
 % Author: Run Yu
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/08/2016; Last revision: 04/08/2016
+% Created: 04/08/2016; Last revision: 04/11/2016
 
 %------------- BEGIN CODE --------------
 

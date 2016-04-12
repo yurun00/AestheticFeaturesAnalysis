@@ -1,5 +1,5 @@
 % DESCRIPTION: This file applies clustering analysis on the dataset of 
-% tamura feature histograms transformed by PCA of two styles. 
+% staright line features of two styles. 
 % The misclassification error is used as the metric to describe the 
 % diversity between two genres. 
 %
@@ -19,7 +19,7 @@
 
 clear; clc;
 
-addr_pca = '..\..\..\data\features\tamura\pca_by_style\';
+addr_pca = '..\..\..\data\features\line\obs_grp_style\';
 addr_glb = '..\..\..\data\global_var\';
 styles = load([addr_glb, 'all_styles.mat']);
 styles = styles.all_styles;
@@ -30,7 +30,7 @@ for i = 1:length(styles)
         if(i < j)
             s1 = styles{i};
             s2 = styles{j};
-            addr_file = [addr_pca,s1,'_',s2,'_pca.mat'];
+            addr_file = [addr_pca,s1,'_',s2,'_obs_grp.mat'];
             % Load observations in the feature space and group variable
             fs_grp_in = load(addr_file);
             fs_obs_in = fs_grp_in.fs_obs;
