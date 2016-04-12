@@ -13,7 +13,7 @@
 % Nanjing University, Dept. of Computer S&T
 % Email address: 121220127@smail.nju.edu.cn
 % Website: none
-% Created: 04/10/2016; Last revision: 04/10/2016
+% Created: 04/10/2016; Last revision: 04/12/2016
 
 %------------- BEGIN CODE --------------
 
@@ -39,26 +39,26 @@ for i = 1:length(styles)
             % Store the categories of the corresponding paintings
             grp = cell(length(fid1) + length(fid2), 1);
             
-            % straight line features of the first style
+            % Straight line features of the first style
             lines1 = zeros(length(fid1), 5);
             for m=1:length(fid1)
                 % Load features
                 load([addr_features, fid1{m}, '_lines.mat']);
 
-                % Concatenate the tamura pixel ratios for PCA input
+                % Concatenate the straight line features for PCA input
                 lines1(m,:) = lines;
 
                 grp{m} = s1;
             end
             tmp = length(lines1);
             
-            % tamura pixel ratios of the second style
+            % Straight line features of the second style
             lines2 = zeros(length(fid2), 5);
             for m=1:length(fid2)
                 % Load features
                 load([addr_features, fid2{m}, '_lines.mat']);
 
-                % Concatenate the tamura pixel ratios for PCA input
+                % Concatenate the straight line features for PCA input
                 lines2(m,:) = lines;
 
                 grp{m+tmp} = s2;
