@@ -1,5 +1,4 @@
 % addr = '..\..\..\test\data\color_tmp_wt\unknown.jpg';
-% % addr = '..\..\..\test\data\color_tw\a.png';
 % img = imread(addr);
 % [tmp,wt] = color_tmp_wt(img);
 

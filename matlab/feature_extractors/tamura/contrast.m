@@ -1,4 +1,23 @@
 function [Fcon, Pcon]=contrast(graypic)
+% CONTRAST - Compute the contrast of the gray-level image
+%
+% Syntax: [F, P] = CONTRAST( GIMG );
+%
+% Inputs:
+%   graypic     - The gray-level image. 
+%
+% Outputs:
+%   Fcon        - The contrast of the image.
+%   Pcont       - The contrast of each pixel's neighborhood.
+%
+% Other m-files required: none
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: none
+
+%------------- BEGIN CODE --------------
+
 % Global contrast
 % 2-D matrix to 1-D vector
 x=graypic(:);
@@ -34,3 +53,6 @@ for i = 1+(sz-1)/2:m-(sz-1)/2
         Pcon(i,j) = sigma/(alpha4^(1/4));
     end
 end
+end
+
+%------------- END CODE --------------

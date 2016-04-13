@@ -25,16 +25,11 @@ function [bimg, threshs, ratio] = canny( gimg, thresh)
 %
 % See also: none
 
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/15/2016; Last revision: 03/15/2016
-
 %------------- BEGIN CODE --------------
 
-    [bimg, threshs] = edge(gimg, 'canny', thresh);
-    ratio = sum(bimg(:))/numel(bimg);
-    
-%------------- END OF CODE --------------
+[bimg, threshs] = edge(gimg, 'canny', thresh);
+ratio = sum(bimg(:))/numel(bimg);
 end
+
+%------------- END OF CODE --------------
 

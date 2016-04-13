@@ -1,6 +1,6 @@
 function [norm_hist_H, norm_hist_S, norm_hist_V] = histograms_hsv( img )
 % HISTOGRAMS_HSV - Compute the HSV histograms of images. Each of the H,S,V
-% values are divided into 8 intervals. Return the 3 histograms, each of 
+% values are divided into 8 intervals. Return 3 histograms, each of 
 % which represents one of the hue, saturation or value component histograms
 %
 % Syntax: [NORM_HIST_H, NORM_HIST_S, NORM_HIST_V] = HISTOGRAMS_HSV( IMG );
@@ -18,11 +18,6 @@ function [norm_hist_H, norm_hist_S, norm_hist_V] = histograms_hsv( img )
 % MAT-files required: none
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/13/2016; Last revision: 03/13/2016
 
 %------------- BEGIN CODE --------------
 

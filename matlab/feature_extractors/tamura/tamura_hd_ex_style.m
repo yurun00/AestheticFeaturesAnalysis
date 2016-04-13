@@ -9,16 +9,12 @@
 % The three values are available for each pixel, so the histograms are 
 % calculated just like the RGB or HSV histograms.
 %
-% Other m-files required: none
+% Other m-files required: tamura_hd.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/29/2016; Last revision: 03/29/2016
 
 %------------- BEGIN CODE --------------
 

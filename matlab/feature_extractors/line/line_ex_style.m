@@ -1,22 +1,17 @@
-% DESCRIPTION: This file extracts the straight line features of all 
-% paintings in global variable 'paintings_by_style' and save them as '.mat'
-% files. 
-% The straight line feature is a 4x1 vector in which each float number 
-% indicates mean slope, mean length, standard deviation of slopes and 
-% standard deviation of lengths of all the detected straight lines.
+% DESCRIPTION:Extracts the straight line features of all paintings in 
+% global variable 'paintings_by_style' and save them as '.mat' files. 
+% The straight line feature is a 5x1 vector in which each float number 
+% indicates hough ratio, long ratio, mean length, standard deviation of
+% lengths and maximum length all the detected straight lines.
 % Canny edge detector and Hough transform are used to find straight lines 
 % that are longer than 10 pixels.
 %
 % Other m-files required: straight_line.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/09/2016; Last revision: 04/09/2016
 
 %------------- BEGIN CODE --------------
 

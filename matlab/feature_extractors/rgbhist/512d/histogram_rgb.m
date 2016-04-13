@@ -16,24 +16,19 @@ function norm_RGB_hist = histogram_rgb( img )
 %
 % See also: none
 
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 01/20/2016; Last revision: 01/22/2016
-
 %------------- BEGIN CODE --------------
 cla
-%Check the dimension of the input image
+% Check the dimension of the input image
 if (ndims(img) == 2)
     disp('dim is 2');
     img = repmat(img, [1, 1, 3]);
 end
 
-%Get the R, G, B vectors
+% Get the R, G, B vectors
 R = img(:,:,1); G = img(:,:,2); B = img(:,:,3);
 R = R(:); G = G(:); B = B(:);
 
-%Use 'histnd' to compute the RGB histogram
+% Use 'histnd' to compute the RGB histogram
 RGB_hist = histnd(...
         [R(~isnan(R)) G(~isnan(G)) B(~isnan(B))], ...
         [-inf 32 64 96 128 160 192 224 inf], ...
@@ -41,7 +36,7 @@ RGB_hist = histnd(...
         [-inf 32 64 96 128 160 192 224 inf]);
 RGB_hist = RGB_hist(1:8, 1:8, 1:8);
 
-%Nomalize the RGB histogram and transform it to a vector
+% Nomalize the RGB histogram and transform it to a vector
 norm_RGB_hist = RGB_hist ./ numel(R);
 norm_RGB_hist = norm_RGB_hist(:);
 

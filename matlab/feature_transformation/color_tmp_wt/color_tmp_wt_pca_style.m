@@ -1,19 +1,15 @@
-% DESCRIPTION:This file is used to extract principle components from the
-% color temperature and weight features classified by styles. Then it saves 
-% the transformed observations in feature space to '.mat' files for 
-% clustering analysis.
+% DESCRIPTION:The extracted principle components from the color temperature
+% and weight features will be classified by styles. Then it saves the 
+% transformed observations in feature space to '.mat' files for clustering 
+% analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\all_styles.mat
+%   ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\features\color_tmp_wt\features_style\*_color_tmp_wt.mat
 %
 % See also: none
-
-% Author: Run Yu, undergraduate, computer science
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn
-% Website: none
-% Created: 03/31/2016; Last revision: 03/31/2016
 
 %------------- BEGIN CODE --------------
 
@@ -39,28 +35,25 @@ for i = 1:length(styles)
             % Store the categories of the corresponding paintings
             grp = cell(length(fid1) + length(fid2), 1);
             
-            % Tamura feature histograms of the first style
+            % Color features of the first style
             colors1 = zeros(length(fid1), 10);
             for m=1:length(fid1)
                 % Load features
                 load([addr_features, fid1{m}, '_color_tmp_wt.mat']);
 
-                % Concatenate the tamura pixel ratios for PCA input
+                % Concatenate the color features for PCA input
                 colors1(m,:) = [tmp', wt'];
-                if(tmp(1) == 'NaN')
-                    disp(m);
-                end
                 grp{m} = s1;
             end
             t = length(colors1);
             
-            % tamura pixel ratios of the second style
+            % Color features of the second style
             colors2 = zeros(length(fid2), 10);
             for m=1:length(fid2)
                 % Load features
                 load([addr_features, fid2{m}, '_color_tmp_wt.mat']);
 
-                % Concatenate the tamura pixel ratios for PCA input
+                % Concatenate the color features for PCA input
                 colors2(m,:) = [tmp', wt'];
 
                 grp{m+t} = s2;
@@ -85,7 +78,7 @@ for i = 1:length(styles)
                 end
             end
 
-            % Transform original dataset to feature space(512 dimension to L dimension)
+            % Transform original dataset to feature space
             w = cef(:,1:L);
             fs_obs = obs * w;
             

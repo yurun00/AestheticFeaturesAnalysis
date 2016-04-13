@@ -1,9 +1,9 @@
 function line_features = straight_line( gimg )
 % STRAIGHT_LINE - Find straight lines in intensity image with canny edge 
 % detector and the hough transform. The function takes an intensity image I
-% as its input, and returns the 4*1 vector of line features include hough
-% ratio, mean length of lines, standard deviation of the lengths, maximum
-% length of lines.
+% as its input, and returns the 5x1 vector in which each float number 
+% indicates hough ratio, long ratio, mean length, standard deviation of
+% lengths and maximum length all the detected straight lines.
 %
 % Syntax: LINES = STRAIGHT_LINE( GRAY_IMAGE )
 %
@@ -12,19 +12,14 @@ function line_features = straight_line( gimg )
 %
 % Outputs:
 %   line_features   - The 4*1 vector of line features include hough ratio, 
-%       mean length of lines, standard deviation of the lengths, maximum
-%       length of lines.
+%           long ratio, mean length of lines, standard deviation of the 
+%           lengths, maximum length of lines.
 %
 % Other m-files required: none
 % Subfunctions: none
 % MAT-files required: none
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/10/2016; Last revision: 04/10/2016
 
 %------------- BEGIN CODE --------------
 
@@ -57,7 +52,6 @@ hough_ratio = 0;
 long_ratio = 0;
 mean_length = 0;
 std_length = 0;
-% std_slope = 0;
 if (~isempty(fieldnames(lines)))
 %     figure(1);
 %     hold on;
@@ -73,7 +67,6 @@ if (~isempty(fieldnames(lines)))
     distance = distance./max(size(BW,1),size(BW,2));
     mean_length = mean(distance);
     std_length = std(distance);
-%     std_slope = std(slope);
 end
 line_features = zeros(5,1);
 line_features(1) = hough_ratio;
@@ -81,7 +74,6 @@ line_features(2) = long_ratio;
 line_features(3) = mean_length;
 line_features(4) = std_length;
 line_features(5) = max(distance);
-% line_features(5) = std_slope;
 
 
 %------------- END OF CODE --------------

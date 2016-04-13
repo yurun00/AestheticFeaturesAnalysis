@@ -7,14 +7,10 @@
 
 % Other m-files required: aayrrunSaliency.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: SaliencyToolBox\
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/08/2016; Last revision: 04/11/2016
 
 %------------- BEGIN CODE --------------
 
@@ -36,8 +32,11 @@ for i = 1:length(paintings)
         continue;
     end
 
+    % Load the image
+    load([addr_mat, paintings{i}, '.mat']);
+    
     % Calculate saliency maps
-    [salMaps,fixations,shapes] = aayrrunSaliency([addr,'courtyard-of-a-farm-at-saint-mammes-1884.jpg'],5);
+    [salMaps,fixations,shapes] = aayrrunSaliency(img,5);
 
     % Save saliency-related features as files
     save([addr_feature, 'sal_maps_style\', paintings{i} , '_sal_maps.mat'], 'salMaps', 'fixations', 'shapes');

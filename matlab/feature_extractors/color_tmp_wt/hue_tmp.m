@@ -1,5 +1,22 @@
 function hts = hue_tmp( hue )
+% hue_tmp - Extract the hue temperature feature from hue components of the 
+% image in LCH colorspace.
+%
+% Syntax: TMP = COL_WT( H);
+%
+% Inputs:
+%   hue     - Hue value of the pixel in a LCH colorspace image.
+%
+% Outputs:
+%   hts     - The hue temperature of the hue value.
+%
+% Other m-files required: none
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: none
 
+%------------- BEGIN CODE --------------
 
 % Wavelength of color spectrum range red, orange, yellow, green, blue and
 % purple

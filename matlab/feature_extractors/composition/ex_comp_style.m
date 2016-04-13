@@ -1,19 +1,15 @@
-% DESCRIPTION: This file extracts the composition features in global 
+% DESCRIPTION: Extracts the composition features of all paintings in global
 % variable 'paintings_by_style' and save them as '.mat' files. 
 % The saliency map should be generated using The SaliencyToolBox downloaded
-% from http://www.saliencytoolbox.net/. The saliency maps will be 
-% extracted. Then the shapes of the most saliency locations will be stored.
+% from http://www.saliencytoolbox.net/. The saliency maps will be extracted
+% and the composition features will be stored.
 
-% Other m-files required: composition.m
+% Other m-files required: composition.m ..\simpsal\*.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: simpsal\
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/11/2016; Last revision: 04/11/2016
 
 %------------- BEGIN CODE --------------
 

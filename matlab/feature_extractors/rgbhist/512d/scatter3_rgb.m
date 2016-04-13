@@ -22,11 +22,6 @@ function h = scatter3_rgb(norm_rgbhist)
 %
 % See also: none
 
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 01/22/2016; Last revision: 02/26/2016
-
 %------------- BEGIN CODE --------------
 
 %Generate the X, Y, Z coordinates in order(X changes the most fast)

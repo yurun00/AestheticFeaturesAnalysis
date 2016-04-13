@@ -1,19 +1,13 @@
-% DESCRIPTION:This file is used to extract principle components from the
-% RGB histogram features classified by styles. Then it saves the 
-% transformed observations in feature space to '.mat' files for clustering
-% analysis.
+% DESCRIPTION:The extracted principle components from the RGB histogram 
+% features will be classified by styles. Then it saves the transformed 
+% observations in feature space to '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\all_styles.mat
+% ..\..\..\data\features\rgb_hist\features_style\*_rgb_hist24d.mat
 %
 % See also: none
-
-% Author: Run Yu, undergraduate, computer science
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn
-% Website: none
-% Created: 03/22/2016; Last revision: 03/22/2016
 
 %------------- BEGIN CODE --------------
 
@@ -60,7 +54,7 @@ for i = 1:length(styles)
                 rgbhd = load([addr_features, fid2{m}, '_rgb_hist24d.mat']);
                 rgbhd = rgbhd.rgb_hist;
 
-                % Concatenate the edge pixel ratios for PCA input
+                % Concatenate the RGB histograms for PCA input
                 rgbhds2(m,:) = rgbhd(:)';
 
                 grp{m+tmp} = s2;
@@ -85,7 +79,7 @@ for i = 1:length(styles)
                 end
             end
 
-            % Transform original dataset to feature space(512 dimension to L dimension)
+            % Transform original dataset to feature space
             w = cef(:,1:L);
             fs_obs = obs * w;
             

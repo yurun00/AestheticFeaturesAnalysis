@@ -1,18 +1,11 @@
-% DESCRIPTION: This file uses the extracted RGB histogram features of 
-% all paintings in global variable 'paintings_by_style' as the input of
-% classifiers. Then it assesses the performance of multiple classifiers and
-% the efficiency of this feature in classification by style.
+% DESCRIPTION:The extracted RGB histogram features of all paintings in 
+% global variable 'paintings_by_style' as the input of classifiers. Then it
+% assesses the performance of multiple classifiers.
 %
-% Other m-files required: none
+% Other m-files required: cl_knn.m,cl_nb.m,cl_svm.m,cl_tree.m
 % Subfunctions: none
-% MAT-files required: none
-%
-% See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/23/2016; Last revision: 03/23/2016
+% MAT-files required: ..\..\data\global_var\paintings_by_style.mat
+%   ..\..\data\features\rgb_hist\pca_by_style\*_pca.mat
 
 %------------- BEGIN CODE --------------
 

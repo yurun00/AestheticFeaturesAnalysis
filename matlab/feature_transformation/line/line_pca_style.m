@@ -1,19 +1,13 @@
-% DESCRIPTION:This file is used to extract principle components from the
-% straight line features classified by styles. Then it saves the 
-% transformed observations in feature space to '.mat' files for clustering 
-% analysis.
+% DESCRIPTION:The extracted principle components from the straight line 
+% features will be classified by styles. Then it saves the transformed 
+% observations in feature space to '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\all_styles.mat
+%   ..\..\..\data\features\line\features_style\*_lines.mat
 %
 % See also: none
-
-% Author: Run Yu, undergraduate, computer science
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn
-% Website: none
-% Created: 04/10/2016; Last revision: 04/10/2016
 
 %------------- BEGIN CODE --------------
 
@@ -83,7 +77,7 @@ for i = 1:length(styles)
                 end
             end
 
-            % Transform original dataset to feature space(512 dimension to L dimension)
+            % Transform original dataset to feature space
             w = cef(:,1:L);
             fs_obs = obs * w;
             

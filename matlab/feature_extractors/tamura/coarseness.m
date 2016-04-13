@@ -1,6 +1,24 @@
-function [Fcrs, Sbest]=coarseness(graypic)
-% |graypic| is the gray-level image. 2^kmax is the maximum size of the
-% window
+function [Fcrs, Sbest] = coarseness(graypic)
+% COARSENESS - Compute the coarseness of the gray-level image
+%
+% Syntax: [F, S] = COARSENESS( GIMG );
+%
+% Inputs:
+%   graypic     - The gray-level image. 
+%
+% Outputs:
+%   Fcrs        - The coarseness of the image.
+%   Sbest       - The coarseness of each pixel's neighborhood.
+%
+% Other m-files required: none
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: none
+
+%------------- BEGIN CODE --------------
+
+% 2^kmax is the maximum size of the window
 kmax=4;
 [m,n]=size(graypic);
 Emaxima=zeros(m,n)-99999;
@@ -51,3 +69,6 @@ for k=1:kmax
 %     end       
 end
 Fcrs=mean2(Sbest);
+end
+
+%------------- END CODE --------------

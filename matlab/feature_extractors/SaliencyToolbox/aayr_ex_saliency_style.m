@@ -1,6 +1,5 @@
-% DESCRIPTION: This file extracts the saliency-related features of all 
-% paintings in global variable 'paintings_by_style' and save them as '.mat'
-% files. 
+% DESCRIPTION: Extracts the saliency-related features of all paintings in 
+% global variable 'paintings_by_style' and save them as '.mat'files. 
 % The saliency map should be generated using The SaliencyToolBox downloaded
 % from http://www.saliencytoolbox.net/. The saliency-based features 
 % includes 'rule of thirds' and 'golden section'. The saliency map is 
@@ -12,14 +11,10 @@
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\features\saliency\*_saliency.mat
 %
 % See also: SaliencyToolBox\
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 04/08/2016; Last revision: 04/08/2016
 
 %------------- BEGIN CODE --------------
 

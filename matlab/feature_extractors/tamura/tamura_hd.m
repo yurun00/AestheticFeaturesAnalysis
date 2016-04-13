@@ -32,11 +32,6 @@ function [norm_hd_crs, norm_hd_con, norm_hd_dir] = tamura_hd( Pcrs, Pcon, Pdir )
 %
 % See also: none
 
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/29/2016; Last revision: 03/29/2016
-
 %------------- BEGIN CODE --------------
 
 % Use 'histnd' to compute the histogram

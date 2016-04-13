@@ -1,19 +1,13 @@
-% DESCRIPTION:This file is used to extract principle components from the
-% composition features classified by styles. Then it saves the transformed 
-% observations in feature space to '.mat' files for clustering 
-% analysis.
+% DESCRIPTION:The extracted principle components from the composition 
+% features will be classified by styles. Then it saves the transformed 
+% observations in feature space to '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\all_styles.mat
+%   ..\..\..\data\features\composition\features_style\*_comp.mat
 %
 % See also: none
-
-% Author: Run Yu, undergraduate, computer science
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn
-% Website: none
-% Created: 04/12/2016; Last revision: 04/12/2016
 
 %------------- BEGIN CODE --------------
 

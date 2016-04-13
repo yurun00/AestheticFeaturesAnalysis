@@ -5,14 +5,10 @@
 %
 % Other m-files required: histograms_rgb.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/12/2016; Last revision: 03/12/2016
 
 %------------- BEGIN CODE --------------
 
@@ -33,11 +29,10 @@ for i = 1:length(paintings)
         continue;
     end
     % Load image
-    img_in = load([addr_mat, paintings{i}, '.mat']);
-    img_in = img_in.img;
+    load([addr_mat, paintings{i}, '.mat']);
 
     % Compute the RGB histogram
-    [nh_r,nh_g,nh_b] = histograms_rgb(img_in);
+    [nh_r,nh_g,nh_b] = histograms_rgb(img);
     rgb_hist = [nh_r,nh_g,nh_b];
 
     % Save RGB histogram as files

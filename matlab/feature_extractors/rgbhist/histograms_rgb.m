@@ -19,11 +19,6 @@ function [norm_hist_R, norm_hist_G, norm_hist_B] = histograms_rgb( img )
 %
 % See also: none
 
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/12/2016; Last revision: 03/13/2016
-
 %------------- BEGIN CODE --------------
 
 % Clear axes

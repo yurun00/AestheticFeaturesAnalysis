@@ -1,5 +1,5 @@
-function [temperature, weight] = color_tmp_wt( img)
-% COLOR_TMP_WT - Calculate the color temperature and weight of the RGB 
+function [temperature, weight] = color_tmp_wt( img )
+% color_tmp_wt - Calculate the color temperature and weight of the RGB 
 % image.
 %
 % Syntax: [TEMPERATURE, WEIGHT] = COLOR_TMP_WT( IMG );
@@ -8,25 +8,21 @@ function [temperature, weight] = color_tmp_wt( img)
 %   img    - The RGB image
 %
 % Outputs:
-%   temperature     - The visual temperature feature of the image 
-%       This is a five dimensional vector with the first element represents
-%       the glocal visual temperature feature and the others represent 
-%       local features of the segmented image regions.
-%   weight          - The visual weight feature of the image 
-%       This is a five dimensional vector with the first element represents
-%       the glocal visual wieght feature and the others represent local 
-%       features of the segmented image regions.
+%   temperature - The visual temperature feature of the image 
+%               This is a five dimensional vector with the first element 
+%               represents the glocal visual temperature feature and the 
+%               others represent local features of the segmented image 
+%               regions.
+%   weight      - The visual weight feature of the image 
+%               This is a five dimensional vector with the first element 
+%               represents the glocal visual wieght feature and the others 
+%               represent local features of the segmented image regions.
 %
-% Other m-files required: none
+% Other m-files required: hue_tmp.m,col_wt.m
 % Subfunctions: none
 % MAT-files required: none
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/28/2016; Last revision: 03/28/2016
 
 %------------- BEGIN CODE --------------
 
@@ -41,15 +37,16 @@ end
 
 % -----Segment the image-----
 % Convert RGB to LCH
-% lab_img = rgb2lab(img);
-% cform = makecform('lab2lch');
-% lch_img = applycform(lab_img, cform);
-lch_img = colorspace('RGB->LCH',img);
+lab_img = rgb2lab(img);
+cform = makecform('lab2lch');
+lch_img = applycform(lab_img, cform);
+% lch_img = colorspace('RGB->LCH',img);
 
 % Get the L, C, H vectors
 L = lch_img(:, :, 1); % Lightness image.
 % C = lch_img(:, :, 2); % Chroma (Saturation) image.
 H = lch_img(:, :, 3); % Hue image.
+
 % seg_img = lch_img;
 % seg_img(:,:,1) = 100;
 % seg_img(:,:,2) = 100;% sqrt(2)*128;
@@ -67,6 +64,7 @@ seg_img = zeros(size(H)) + ((H >= 45) + (H < 135) - 1) * 90 + ...
 % seg_img = applycform(seg_img, cform);
 % imshow(lab2rgb(seg_img));
 
+% Compute the global temperature and four local temperature scores.
 global_tmp = arrayfun(@hue_tmp, H);
 seg1_tmp = global_tmp; seg1_tmp(seg_img ~= 0) = 0;
 seg2_tmp = global_tmp; seg2_tmp(seg_img ~= 90) = 0;
@@ -96,6 +94,7 @@ else
     temperature(5) = sum(sum(seg4_tmp))/sum(sum(seg_img == 270));
 end
 
+% Compute the global weight and four local weight scores.
 global_wt = arrayfun(@col_wt, H, L);
 seg1_wt = global_wt; seg1_wt(seg_img ~= 0) = 0;
 seg2_wt = global_wt; seg2_wt(seg_img ~= 90) = 0;

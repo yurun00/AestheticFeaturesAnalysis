@@ -1,4 +1,24 @@
-function [Fdir,sita,HD]=directionality(graypic)
+function [Fdir,sita,HD] = directionality(graypic)
+% DIRECTIONALITY - Compute the directionality of the gray-level image
+%
+% Syntax: [F, P] = CONTRAST( GIMG );
+%
+% Inputs:
+%   graypic     - The gray-level image. 
+%
+% Outputs:
+%   Fdir        - The directionality of the image.
+%   sita        - The directionality of each pixel.
+%   HD          - The directionality histogram.
+%
+% Other m-files required: none
+% Subfunctions: none
+% MAT-files required: none
+%
+% See also: none
+
+%------------- BEGIN CODE --------------
+
 [h,w] = size(graypic); %两个方向的卷积矩阵 
 GradientH = [-1 0 1;-1 0 1;-1 0 1];
 GradientV = [1 1 1;0 0 0;-1 -1 -1];
@@ -29,3 +49,6 @@ HD = Nsita/sum(Nsita(:));%各个角度范围像素点比例
 [maxvalue,Pip]=max(HD);
 tmp = 1:n;
 Fdir = sum(sum((tmp-Pip).^2 .* HD)); %公式与原著有改动
+end
+
+%------------- END CODE --------------

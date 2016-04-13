@@ -3,16 +3,10 @@
 % classifiers. Then it assesses the performance of multiple classifiers and
 % the efficiency of this feature in classification by style.
 %
-% Other m-files required: none
+% Other m-files required: cl_knn.m,cl_nb.m,cl_svm.m,cl_tree.m
 % Subfunctions: none
-% MAT-files required: none
-%
-% See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/20/2016; Last revision: 03/20/2016
+% MAT-files required: ..\..\data\global_var\paintings_by_style.mat
+%   ..\..\data\features\tamura\pca_by_style\*_pca.mat
 
 %------------- BEGIN CODE --------------
 
@@ -43,11 +37,11 @@ for i = 1:length(styles)
             grp = tamura_pca.grp;
             tamura_pca = tamura_pca.fs_obs;
             
-            % Naive Bayes
-            f1s(i,j) = cl_nb(tamura_pca,grp,s1,s2);
+%             % Naive Bayes
+%             f1s(i,j) = cl_nb(tamura_pca,grp,s1,s2);
 
-%             % K-Nearest Neighbor
-%             f1s(i,j) = cl_knn(tamura_pca,grp,10,s1,s2);
+            % K-Nearest Neighbor
+            f1s(i,j) = cl_knn(tamura_pca,grp,10,s1,s2);
             
 %             % Support Vector Machine
 %             f1s(i,j) = cl_svm(tamura_pca,grp,'rbf',s1,s2);

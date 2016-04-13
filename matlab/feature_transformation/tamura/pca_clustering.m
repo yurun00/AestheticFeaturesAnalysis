@@ -1,19 +1,14 @@
-% DESCRIPTION: This file applies clustering analysis on the dataset of 
-% tamura feature histograms transformed by PCA of two styles. 
+% DESCRIPTION: The clustering analysis is applied on the dataset of tamura 
+% feature histograms transformed by PCA in two styles. 
 % The misclassification error is used as the metric to describe the 
-% diversity between two genres. 
+% diversity between two styles. 
 %
 % Other m-files required: none
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\features\tamura\pca_by_style\*_pca.mat
+%   ..\..\..\data\global_var\all_styles.mat
 %
 % See also: none
-
-% Author: Run Yu, undergraduate, computer science
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn
-% Website: none
-% Created: 03/29/2016; Last revision: 03/29/2016
 
 %------------- BEGIN CODE --------------
 

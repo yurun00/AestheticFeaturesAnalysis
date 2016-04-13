@@ -1,6 +1,5 @@
-% DESCRIPTION: This file extracts the edge pixel ratio features of all 
-% paintings in global variable 'paintings_by_style' and save them as '.mat'
-% files. 
+% DESCRIPTION: Extracts the edge pixel ratio features of all paintings in 
+% global variable 'paintings_by_style' and save them as '.mat' files. 
 % The edge ratio feature is a 4x1 vector in which each float number 
 % indicates the number of pixels labelled as edge relative to the total 
 % number of pixels by canny edge detector. The thresholds are 0.2,0.3,0.4,
@@ -8,14 +7,10 @@
 %
 % Other m-files required: canny.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/16/2016; Last revision: 03/28/2016
 
 %------------- BEGIN CODE --------------
 
@@ -36,17 +31,15 @@ for i = 1:length(paintings)
 %     if(exist([addr_feature, 'features_style\', paintings{i} , '_edge_ratio.mat'],'file'))
 %         continue;
 %     end
-%     paintings{i} = paintings{i}(1:strfind(paintings{i},'.jpg')-1);
     % Load image
-    img_in = load([addr_mat, paintings{i}, '.mat']);
-    img_in = img_in.img;
+	load([addr_mat, paintings{i}, '.mat']);
     
     % Check the dimension of the input image
-    if (ndims(img_in) == 2)
+    if (ndims(img) == 2)
         disp('dim is 2');
-        img_in = repmat(img_in, [1, 1, 3]);
+        img = repmat(img, [1, 1, 3]);
     end
-    gimg = rgb2gray(img_in);
+    gimg = rgb2gray(img);
     
     % Compute the edge pixel ratios
     ratios = zeros(4,1);

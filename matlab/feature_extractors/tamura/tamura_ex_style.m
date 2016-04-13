@@ -1,6 +1,5 @@
-% DESCRIPTION: This file extracts the Tamura texture features of all 
-% paintings in global variable 'paintings_by_style' and save them as '.mat'
-% files. 
+% DESCRIPTION: Extracts the Tamura texture features of all paintings in 
+% global variable 'paintings_by_style' and save them as '.mat' files. 
 % The Tamura texture feature consists of six components:coarseness, 
 % contrast, directionality, line-likeness, regularity, and roughness. But
 % only the first three of them are used. Instead of a global value, for
@@ -15,16 +14,12 @@
 % Once Three values are available for each pixel, the histograms will be
 % calculated just like the RGB or HSV histograms.
 %
-% Other m-files required: none
+% Other m-files required: coarseness.m,contrast.m,directionality.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/23/2016; Last revision: 03/23/2016
 
 %------------- BEGIN CODE --------------
 
@@ -45,17 +40,15 @@ for i = 1:length(paintings)
         disp(i);
         continue;
     end
-%     paintings{i} = paintings{i}(1:strfind(paintings{i},'.jpg')-1);
     % Load image
-    img_in = load([addr_mat, paintings{i}, '.mat']);
-    img_in = img_in.img;
+    load([addr_mat, paintings{i}, '.mat']);
     
     % Check the dimension of the input image
-    if (ndims(img_in) == 2)
+    if (ndims(img) == 2)
         disp('dim is 2');
-        img_in = repmat(img_in, [1, 1, 3]);
+        img = repmat(img, [1, 1, 3]);
     end
-    gimg = rgb2gray(img_in);
+    gimg = rgb2gray(img);
     
     % Compute the tamura texture features for per pixel
     [Fcrs, Pcrs] = coarseness(double(gimg));

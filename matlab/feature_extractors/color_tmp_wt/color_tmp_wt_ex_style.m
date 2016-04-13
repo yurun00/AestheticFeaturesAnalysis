@@ -1,18 +1,15 @@
-% DESCRIPTION: This file extracts the color based features of all paintings
-% in global variable 'paintings_by_style' and save them as '.mat' files. 
-% The color based features include 'visual temperature of color' and
+% DESCRIPTION: Extracts the color temperature and weight features of all 
+%paintings in global variable 'paintings_by_style' and save them as '.mat' 
+% files. 
+% The feature includes two components: 'visual temperature of color' and 
 % 'visual weight of color'.
 %
-% Other m-files required: none
+% Other m-files required: color_tmp_wt.m
 % Subfunctions: none
-% MAT-files required: none
+% MAT-files required: ..\..\data\global_var\paintings_by_style.mat
+%   ..\..\..\data\paintings_mat\*.mat
 %
 % See also: none
-
-% Author: Run Yu
-% Nanjing University, Dept. of Computer S&T
-% Email address: 121220127@smail.nju.edu.cn 
-% Created: 03/28/2016; Last revision: 03/28/2016
 
 %------------- BEGIN CODE --------------
 
