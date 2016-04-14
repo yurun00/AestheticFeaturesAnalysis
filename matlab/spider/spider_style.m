@@ -1,4 +1,4 @@
-function rm = radar_map_style(s1, s2)
+function sp = spider_style(s1, s2)
 
 addr_glb = '..\..\data\global_var\';
 addr_rst = '..\..\data\results\style\';
@@ -35,6 +35,6 @@ tle = ['Classification efficiency of styles ',s1,' and ',s2];
 rng = [0,1];
 leg = {[s1,' and ',s2]};
 % Plot the radar map
-[rm, x, o] = spider(data,tle,rng,lbl,leg);
+[sp, x, o] = spider(data,tle,rng,lbl,leg);
 
 end

@@ -1,5 +1,5 @@
 % DESCRIPTION: Extracts the color temperature and weight features of all 
-%paintings in global variable 'paintings_by_style' and save them as '.mat' 
+% paintings in global variable 'paintings_by_style' and save them as '.mat' 
 % files. 
 % The feature includes two components: 'visual temperature of color' and 
 % 'visual weight of color'.
