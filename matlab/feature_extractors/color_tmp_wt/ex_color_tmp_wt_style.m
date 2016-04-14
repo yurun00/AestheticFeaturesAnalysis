@@ -25,7 +25,6 @@ paintings = paintings_by_style.values;
 paintings = [paintings{:}];
 
 mkdir([addr_feature, 'features_style\']);
-thresh = [.2,.3,.4,.6];
 for i = 1:length(paintings)
     if(exist([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat'],'file'))
         load([addr_feature, 'features_style\', paintings{i} , '_color_tmp_wt.mat']);
