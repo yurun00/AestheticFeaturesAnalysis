@@ -25,8 +25,7 @@ paintings = paintings_by_genre.values;
 paintings = [paintings{:}];
 
 mkdir([addr_feature, 'features_genre\']);
-for i = 487:487
-% for i = 1:length(paintings)
+for i = 1:length(paintings)
     if(exist([addr_feature, 'features_genre\', paintings{i} , '_color_tmp_wt.mat'],'file'))
         load([addr_feature, 'features_genre\', paintings{i} , '_color_tmp_wt.mat']);
         if(sum(isnan(tmp)) == 0 && sum(isnan(wt)) == 0)

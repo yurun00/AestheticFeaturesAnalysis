@@ -68,6 +68,13 @@ if (~isempty(fieldnames(lines)))
     mean_length = mean(distance);
     std_length = std(distance);
 end
+if(length(distance) == 0)
+    hough_ratio = 0;
+    long_ratio = 0;
+    distance = [0];
+    mean_length = 0;
+    std_length = 0;
+end
 line_features = zeros(5,1);
 line_features(1) = hough_ratio;
 line_features(2) = long_ratio;
