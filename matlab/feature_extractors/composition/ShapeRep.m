@@ -22,10 +22,15 @@ cxx = cxx/N;
 cxy = cxy/N;
 cyx = cyx/N;
 cyy = cyy/N;
-r1 = 0.5*(cxx+cyy+sqrt((cxx+cyy).^2+4*(cxx*cyy-cxy.^2)));
-r2 = 0.5*(cxx+cyy-sqrt((cxx+cyy).^2+4*(cxx*cyy-cxy.^2)));
-eccentricity = 1-abs(r2/r1);
-[y,x]= find(ShapeImg==1);
+r1 = 0.5*(cxx+cyy+sqrt((cxx+cyy).^2-4*(cxx*cyy-cxy.^2)));
+r2 = 0.5*(cxx+cyy-sqrt((cxx+cyy).^2-4*(cxx*cyy-cxy.^2)));
+eccentricity = r2/r1;
+[x,y]= find(ShapeImg==1);
+c = minBoundingBox([x';y']);
+figure;
+hold off,  plot(x,y,'.')
+hold on,   plot(c(1,[1:end 1]),c(2,[1:end 1]),'r');
+axis equal
 rectratio = length(y)/abs((max(x)-min(x))*(max(y)-min(y)));
 % [indy]= find(y>gy);
 % [indx]= find(x>gx);

@@ -6,3 +6,5 @@ data/paintings_mat
 *.asv
 data/features/tamura/perpixel_features_style
 data/features/tamura/perpixel_features_genre
+vlg_extractor_1.1.3
+data/features/classeme/genre

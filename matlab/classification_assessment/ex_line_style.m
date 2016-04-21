@@ -35,7 +35,7 @@ for i = 1:length(styles)
             
             lines = load([addr_ftr,s1,'_',s2,'_obs_grp.mat']);
             grp = lines.grp;
-            lines = lines.fs_obs;
+            lines = lines.fs_obs(:,1:4);
             
 %             % Naive Bayes
 %             f1s(i,j) = cl_nb(lines,grp,s1,s2);

@@ -35,7 +35,7 @@ paintings = paintings_by_genre.values;
 paintings = [paintings{:}];
 
 mkdir([addr_feature, 'perpixel_features_genre\']);
-for i = 1:length(paintings)
+for i = length(paintings):-1:1
     if(exist([addr_feature, 'perpixel_features_genre\', paintings{i} , '_tamura_perpixel.mat'],'file'))
         disp(i);
         continue;

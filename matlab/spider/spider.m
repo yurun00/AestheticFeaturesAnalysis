@@ -212,12 +212,21 @@ for ii = 1:r
 	end
 end
 
+for ii = 1:4
+    tm = plot(ca,[cos(ang)' * inc(ii);...
+        cos(ang + pi/3)' * inc(ii)],...
+        [sin(ang)' * inc(ii);...
+        sin(ang + pi/3)' * inc(ii)],'color','k');
+end
 
 % plot the data
 o = polar(ca,angw*ones(1,c),magw);
 % set color of the lines
 for ii = 1:c; set(o(ii),'color',col(ii,:),'linewidth',1.5); end
-
+for ii = 1:c
+    fi = fill(cos(angw) .* magw(:,ii), sin(angw) .* magw(:,ii), col(ii,:));
+    set(fi,'facealpha',.5);
+end
 % apply the legend
 temp = legend(o,leg,'location','northeastoutside');
 

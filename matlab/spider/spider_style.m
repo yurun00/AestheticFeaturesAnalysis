@@ -54,6 +54,7 @@ if nargin < 2
         end
         % Plot the radar map
         [sp, x, o] = spider(data,tle,rng,lbl,leg);
+        set(sp, 'Position', [400,200,600,400]);
         return;
     elseif iscell(sts) && size(sts,1) == 1 && size(sts,2) > 2
         % Input data (MxN) (# data sets (M) x # axes (N))
@@ -77,6 +78,7 @@ if nargin < 2
         end
          % Plot the radar map
         [sp, x, o] = spider(data,tle,rng,lbl,leg);
+        set(sp, 'Position', [400,200,600,400]);
         return;
     elseif iscell(sts) && size(sts,2) == 2
         sz = size(sts);
@@ -98,6 +100,7 @@ if nargin < 2
         end
         % Plot the radar map
         [sp, x, o] = spider(data,tle,rng,lbl,leg);
+        set(sp, 'Position', [400,200,600,400]);
         return;
     else ;
     end

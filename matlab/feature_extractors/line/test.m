@@ -1,4 +1,4 @@
-addr = '..\..\..\test\data\line\portrait-of-jacqueline-1957.jpg';
+addr = '..\..\..\test\data\line\seated-woman-with-blue-and-red-hat-1939.jpg';
 img = imread(addr);
 gimg = rgb2gray(img);
 

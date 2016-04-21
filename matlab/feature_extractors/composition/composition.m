@@ -1,9 +1,8 @@
-function [saliency_img,format,sa_cv,sa_ecc, sa_re, focus,thirds] = composition(rgbimg)
+function [saliency_img,sa_cv,sa_ecc, sa_re, focus,thirds] = composition(rgbimg)
 height = size(rgbimg,1);
 width = size(rgbimg,2);
 ratio = height/width;
-golden_ratio = (1 +sqrt(5))/2;
-format =ratio/(2*golden_ratio);
+golden_ratio = (1 + sqrt(5))/2-1;
 
 % map = gbvs(rgbimg);
 % saliency_map = map.master_map_resized;
@@ -19,7 +18,10 @@ salient_region = zeros(height, width);
      salient_region(y(i),x(i))=1;
  end
  
-% figure;
+% figure(1);
+% imshow(saliency_map);
+% 
+% figure(2);
 % imshow(salient_region);
   
 % calculate mass centre of salient region
@@ -42,7 +44,7 @@ mcenter(1,2) = round(sumx/sumsaliency);
 % shapecenter(1,1)= round(sumy2/sum(sum(salient_region)));
 % shapecenter(1,2)= round(sumx2/sum(sum(salient_region)));
 [sa_ecc, sa_re] = ShapeRep(salient_region, mcenter);
-[max_y,max_x]=find(saliency_map==max(max(saliency_map)));
+[max_y,max_x] = find(saliency_map==max(max(saliency_map)));
 focus(1,1) = max_y;
 focus(1,2) = max_x;
 saliency_img = 0;
