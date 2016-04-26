@@ -18,11 +18,11 @@ salient_region = zeros(height, width);
      salient_region(y(i),x(i))=1;
  end
  
-% figure(1);
-% imshow(saliency_map);
-% 
-% figure(2);
-% imshow(salient_region);
+figure(1);
+imshow(saliency_map);
+
+figure(2);
+imshow(salient_region);
   
 % calculate mass centre of salient region
 sumx = 0;
@@ -61,15 +61,24 @@ saliency_img = 0;
 focus(1,1)=focus(1,1)/height;
 focus(1,2)=focus(1,2)/width;
 division = 1;
-hstep = 1:round(height/3):height;
-hstep(1,4) = height;
-wstep = 1:round(width/3):width;
-wstep(1,4) = width;
-for m = 1:3
-    for n = 1:3
-        thirds(1,division)= max(max(saliency_map(hstep(m):hstep(m+1),wstep(n):wstep(n+1))));
-%         figure;
-%         imshow(saliency_img(hstep(m):hstep(m+1),wstep(n):wstep(n+1)));
+hstep = [round(height/6),round(height/2),round(5*height/6)];
+wstep = [round(width/6),round(width/2),round(5*width/6)];
+for m = 1:2
+    for n = 1:2
+        thirds(1,division) = sum(sum(salient_region(hstep(m):hstep(m+1),...
+            wstep(n):wstep(n+1))))/(height*width/9);
         division = division +1;
     end
 end
+% hstep = 1:round(height/3):height;
+% hstep(1,4) = height;
+% wstep = 1:round(width/3):width;
+% wstep(1,4) = width;
+% for m = 1:3
+%     for n = 1:3
+%         thirds(1,division)= max(max(saliency_map(hstep(m):hstep(m+1),wstep(n):wstep(n+1))));
+% %         figure;
+% %         imshow(saliency_img(hstep(m):hstep(m+1),wstep(n):wstep(n+1)));
+%         division = division +1;
+%     end
+% end

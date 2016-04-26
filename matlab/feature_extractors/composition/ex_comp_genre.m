@@ -40,13 +40,12 @@ for i = 1:length(paintings)
     end
     
     % Calculate composition features
-    [~,format,sa_cv,sa_ecc, sa_re,focus,thirds] = composition(img);
-    comp(1)= format;
-    comp(2)= sa_cv;
-    comp(3)= sa_ecc;
-    comp(4)= sa_re;
-    comp(5:6)= focus(1,1:2);
-    comp(7:15)= thirds(1,1:9);
+    [~,sa_cv,sa_ecc, sa_re,focus,thirds] = composition(img);
+    comp(1)= sa_cv;
+    comp(2)= sa_ecc;
+    comp(3)= sa_re;
+    comp(4:5)= focus(1,1:2);
+    comp(6:9)= thirds(1,1:4);
 
     % Save saliency-related features as files
     save([addr_feature, 'features_genre\', paintings{i} , '_comp.mat'], 'comp');

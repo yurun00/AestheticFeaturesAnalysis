@@ -50,7 +50,7 @@ H = lch_img(:, :, 3); % Hue image.
 % Four local regions: red, yellow, green, blue, just save blue segment
 seg_img = lch_img;
 seg_img(:,:,1) = zeros(size(H)) + ((H >= 225) + (H < 315) - 1) * 100;
-seg_img(:,:,2) = 0;% sqrt(2)*128;
+seg_img(:,:,2) = sqrt(2)*128;
 seg_img(:,:,3) = zeros(size(H)) + ((H >= 225) + (H < 315) - 1) * 270;
 
 % Show the segmented image
