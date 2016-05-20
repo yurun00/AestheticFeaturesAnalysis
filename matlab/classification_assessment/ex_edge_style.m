@@ -12,7 +12,7 @@
 clear; clc;
 
 addr_glb = '..\..\data\global_var\';
-addr_pca = '..\..\data\features\edge\pca_by_style\';
+addr_pca = '..\..\data\features\edge\obs_grp_style\';
 addr_rst = '..\..\data\results\';
 
 paintings_by_style = load([addr_glb, 'paintings_by_style.mat']);
@@ -32,7 +32,7 @@ for i = 1:length(styles)
             s1 = styles{i};
             s2 = styles{j};
             
-            edge_pca = load([addr_pca,s1,'_',s2,'_pca.mat']);
+            edge_pca = load([addr_pca,s1,'_',s2,'_obs_grp.mat']);
             grp = edge_pca.grp;
             edge_pca = edge_pca.fs_obs;
             

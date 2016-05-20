@@ -1,6 +1,6 @@
 % DESCRIPTION:The extract the classeme features with corresponding style 
-% labels will be classified by styles. Then it saves the transformed 
-% observations in feature space to '.mat' files for clustering analysis.
+% labels will be classified by styles. Then it saves thenobservations to 
+% '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
@@ -33,7 +33,7 @@ for i = 1:length(styles)
             % Store the categories of the corresponding paintings
             grp = cell(length(fid1) + length(fid2), 1);
             
-            % Straight classeme features of the first style
+            % Classeme features of the first style
             classemes1 = zeros(length(fid1), 2659);
             for m=1:length(fid1)
                 % Load features
@@ -46,7 +46,7 @@ for i = 1:length(styles)
             end
             tmp = length(fid1);
             
-            % Straight classeme features of the second style
+            % Classeme features of the second style
             classemes2 = zeros(length(fid2), 2659);
             for m=1:length(fid2)
                 % Load features

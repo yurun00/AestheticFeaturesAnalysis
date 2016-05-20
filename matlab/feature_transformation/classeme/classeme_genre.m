@@ -1,6 +1,6 @@
 % DESCRIPTION:The extract the classeme features with corresponding genre 
-% labels will be classified by genres. Then it saves the transformed 
-% observations in feature space to '.mat' files for clustering analysis.
+% labels will be classified by genres. Then it saves the observations to 
+% '.mat' files for clustering analysis.
 %
 % Other m-files required: none
 % Subfunctions: none
@@ -33,7 +33,7 @@ for i = 1:length(genres)
             % Store the categories of the corresponding paintings
             grp = cell(length(fid1) + length(fid2), 1);
             
-            % Straight classeme features of the first genre
+            % Classeme features of the first genre
             classemes1 = zeros(length(fid1), 2659);
             for m=1:length(fid1)
                 % Load features
@@ -46,7 +46,7 @@ for i = 1:length(genres)
             end
             tmp = length(fid1);
             
-            % Straight classeme features of the second genre
+            % Classeme features of the second genre
             classemes2 = zeros(length(fid2), 2659);
             for m=1:length(fid2)
                 % Load features

@@ -35,27 +35,22 @@ for i = 1:length(fids2)
     eg2 = [eg2;ratios'];
 end
 f1 = figure(1);
-set(f1, 'Position',  [100,100,600,500]);
+set(f1, 'Position',  [100,100,400,300]);
 
 m1 = mean(eg1);
-s1 = std(eg1);
 m2 = mean(eg2);
-s2 = std(eg2);
 
-p1 = plot([m1',s1',m2',s2']);
+p1 = plot([m1',m2']);
 p1(1).LineWidth = 2;
 p1(1).Color = [1,0,0];
 p1(2).LineWidth = 2;
-p1(2).Color = [0.6,1,1];
-p1(3).LineWidth = 2;
-p1(3).Color = [0,0,1];
-p1(4).LineWidth = 2;
-p1(4).Color = [1,1,0.6];
+p1(2).Color = [0,0,1];
 
-title('mean and standard deviation of edge pixel ratios');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
-xlabel('edge pixel ratios');
+title('mean of the edge pixel ratios');
+legend(['mean',g1],['mean',g2]);
+xlabel('Thresholds of Canny detector');
 ax = gca;
-ax.XTick;
+ax.XTick = 1:4;
+ax.XTickLabel = {'0.2','0.3','0.4','0.6'};
 
 %------------- END OF CODE --------------

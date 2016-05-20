@@ -20,7 +20,7 @@ paintings_by_style = paintings_by_style.paintings_by_style;
 % paintings = paintings_by_style.values;
 % paintings = [paintings{:}];
 styles = paintings_by_style.keys;
-g1 = styles{3};
+g1 = styles{6};
 g2 = styles{7};
 fids1 = paintings_by_style(g1);
 fids2 = paintings_by_style(g2);
@@ -35,7 +35,7 @@ for i = 1:length(fids2)
     hh2 = [hh2;hsv_hist(:,1)',hsv_hist(:,2)',hsv_hist(:,3)'];
 end
 f1 = figure(1);
-set(f1, 'Position',  [100,100,1200,500]);
+set(f1, 'Position',  [100,100,1200,400]);
 
 m1 = mean(hh1);
 s1 = std(hh1);
@@ -43,52 +43,34 @@ m2 = mean(hh2);
 s2 = std(hh2);
 
 subplot(1,3,1);
-p1 = plot([m1(1:8)',s1(1:8)',m2(1:8)',s2(1:8)']);
-p1(1).LineWidth = 2;
-p1(1).Color = [1,0,0];
-p1(2).LineWidth = 2;
-p1(2).Color = [0.6,1,1];
-p1(3).LineWidth = 2;
-p1(3).Color = [0,0,1];
-p1(4).LineWidth = 2;
-p1(4).Color = [1,1,0.6];
+p1 = bar([m1(1:8)',m2(1:8)'],1.6);
+p1(1).FaceColor = [1,0,0];
+p1(2).FaceColor = [0,1,0];
 
-title('mean and standard deviation of hue');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of Hue');
+legend(['mean',g1],['mean',g2]);
 xlabel('hue');
 ax = gca;
 ax.XTick = 0:7;
 
 subplot(1,3,2);
-p2 = plot([m1(9:16)',s1(9:16)',m2(9:16)',s2(9:16)']);
-p2(1).LineWidth = 2;
-p2(1).Color = [1,0,0];
-p2(2).LineWidth = 2;
-p2(2).Color = [0.6,1,1];
-p2(3).LineWidth = 2;
-p2(3).Color = [0,0,1];
-p2(4).LineWidth = 2;
-p2(4).Color = [1,1,0.6];
+p2 = bar([m1(9:16)',m2(9:16)'],1.6);
+p2(1).FaceColor = [1,0,0];
+p2(2).FaceColor = [0,1,0];
 
-title('mean and standard deviation of saturation');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of saturation');
+legend(['mean',g1],['mean',g2]);
 xlabel('saturation');
 ax = gca;
 ax.XTick = 0:7;
 
 subplot(1,3,3);
-p3 = plot([m1(17:24)',s1(17:24)',m2(17:24)',s2(17:24)']);
-p3(1).LineWidth = 2;
-p3(1).Color = [1,0,0];
-p3(2).LineWidth = 2;
-p3(2).Color = [0.6,1,1];
-p3(3).LineWidth = 2;
-p3(3).Color = [0,0,1];
-p3(4).LineWidth = 2;
-p3(4).Color = [1,1,0.6];
+p3 = bar([m1(17:24)',m2(17:24)'],1.6);
+p3(1).FaceColor = [1,0,0];
+p3(2).FaceColor = [0,1,0];
 
-title('mean and standard deviation of value');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of value');
+legend(['mean',g1],['mean',g2]);
 xlabel('value');
 ax = gca;
 ax.XTick = 0:7;

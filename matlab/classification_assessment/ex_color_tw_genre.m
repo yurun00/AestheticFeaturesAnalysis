@@ -13,7 +13,7 @@
 clear; clc;
 
 addr_glb = '..\..\data\global_var\';
-addr_pca = '..\..\data\features\color_tw\pca_by_genre\';
+addr_pca = '..\..\data\features\color_tw\obs_grp_genre\';
 addr_rst = '..\..\data\results\';
 
 paintings_by_genre = load([addr_glb, 'paintings_by_genre.mat']);
@@ -33,7 +33,7 @@ for i = 1:length(genres)
             s1 = genres{i};
             s2 = genres{j};
             
-            color_pca = load([addr_pca,s1,'_',s2,'_pca.mat']);
+            color_pca = load([addr_pca,s1,'_',s2,'_obs_grp.mat']);
             grp = color_pca.grp;
             color_pca = color_pca.fs_obs;
             

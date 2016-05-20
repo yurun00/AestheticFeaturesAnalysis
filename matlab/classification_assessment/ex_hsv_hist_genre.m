@@ -12,7 +12,7 @@
 clear; clc;
 
 addr_glb = '..\..\data\global_var\';
-addr_pca = '..\..\data\features\hsv_hist\pca_by_genre\';
+addr_pca = '..\..\data\features\hsv_hist\obs_grp_genre\';
 addr_rst = '..\..\data\results\';
 
 paintings_by_genre = load([addr_glb, 'paintings_by_genre.mat']);
@@ -32,7 +32,7 @@ for i = 1:length(genres)
             s1 = genres{i};
             s2 = genres{j};
             
-            hsvhd_pca = load([addr_pca,s1,'_',s2,'_pca.mat']);
+            hsvhd_pca = load([addr_pca,s1,'_',s2,'_obs_grp.mat']);
             grp = hsvhd_pca.grp;
             hsvhd_pca = hsvhd_pca.fs_obs;
             

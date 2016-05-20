@@ -1,8 +1,8 @@
 function sp = spider_genre(sts)
 
-% sp = spider_genre('Cubism');
-% sp = spider_genre({'Cubism' 'Expressionism' 'Fauvism'});
-% sp = spider_genre({'Cubism' 'Expressionism';'Cubism' 'Fauvism'});
+% sp = spider_genre('cityscape');
+% sp = spider_genre({'cityscape' 'portrait' 'landscape'})
+% sp = spider_genre({'cityscape' 'portrait';'landscape' 'portrait'})
 
 addr_glb = '..\..\data\global_var\';
 addr_rst = '..\..\data\results\genre\';
@@ -25,7 +25,7 @@ end
 tle = 'Spider map of classification efficiency';
 
 % Peak range of the data (Mx1 or Mx2)
-rng = [0,1];
+rng = [0.5,1];
 
 % Data set legend identification (1xN)
 leg = {};

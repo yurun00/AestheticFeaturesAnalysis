@@ -221,11 +221,12 @@ end
 
 % plot the data
 o = polar(ca,angw*ones(1,c),magw);
+% o = plot(pol2cart(angw*ones(1,c),magw));
 % set color of the lines
-for ii = 1:c; set(o(ii),'color',col(ii,:),'linewidth',1.5); end
+for ii = 1:c; set(o(ii),'color',col(ii,:),'linewidth',2); end
 for ii = 1:c
-    fi = fill(cos(angw) .* magw(:,ii), sin(angw) .* magw(:,ii), col(ii,:));
-    set(fi,'facealpha',.5);
+    fi = fill(cos(angw) .* magw(:,ii), sin(angw) .* magw(:,ii), col(ii,:), 'EdgeColor', col(ii,:));
+    set(fi,'facealpha',.2);
 end
 % apply the legend
 temp = legend(o,leg,'location','northeastoutside');
@@ -276,26 +277,26 @@ function [val] = color_index(len)
 if nargin < 1 | nargout < 1; help color_index; error('I / O error'); end
 
 if len == 1
-	val = [0 0 0];
+	val = [1 0 0];
 else
 	% initial color posibilities (no white)
 	% default color scale
-	col = [	0 0 0
+	col = [	1 0 0
+            1 0 1
+            1 1 0
+            0 1 0
+            0 1 1
 			0 0 1
-			0 1 1
-			0 1 0
-			1 1 0
-			1 0 1
-			1 0 0];
+			0 0 0];
 
 	% reduce if fewer than 6 items are needed (no interpolation needed)
 	switch len
 		case 1, col([2 3 4 5 6 7],:) = [];
-		case 2, col([1 2 3 5 6],:) = [];
-		case 3, col([1 3 5 6],:) = [];
-		case 4, col([3 5 6],:) = [];
-		case 5, col([5 6],:) = [];
-		case 6, col(6,:) = [];
+		case 2, col([1 2 3 5 7],:) = [];
+		case 3, col([1 3 5 7],:) = [];
+		case 4, col([3 5 7],:) = [];
+		case 5, col([5 7],:) = [];
+		case 6, col(7,:) = [];
 	end
 
 	% number of requested colors

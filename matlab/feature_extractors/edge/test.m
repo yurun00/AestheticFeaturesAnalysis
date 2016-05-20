@@ -1,4 +1,4 @@
-addr = '..\..\..\test\data\edge\the-mysterious-source-of-harmony.jpg';
+addr = '..\..\..\test\data\edge\bathers-on-the-beach-under-umbrella-1955.jpg';
 img = imread(addr);
 gimg = rgb2gray(img);
 thresh = [.2,.3,.4,.6];

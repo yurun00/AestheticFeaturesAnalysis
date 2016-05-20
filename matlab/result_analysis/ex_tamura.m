@@ -43,54 +43,44 @@ m2 = mean(tm2);
 s2 = std(tm2);
 
 subplot(1,3,1);
-p1 = plot([m1(1:8)',s1(1:8)',m2(1:8)',s2(1:8)']);
+p1 = plot([m1(1:8)',m2(1:8)']);
 p1(1).LineWidth = 2;
 p1(1).Color = [1,0,0];
 p1(2).LineWidth = 2;
-p1(2).Color = [0.6,1,1];
-p1(3).LineWidth = 2;
-p1(3).Color = [0,0,1];
-p1(4).LineWidth = 2;
-p1(4).Color = [1,1,0.6];
+p1(2).Color = [0,0,1];
 
-title('mean and standard deviation of contrast');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of contrast');
+legend(['mean',g1],['mean',g2]);
 xlabel('contrast');
 ax = gca;
-ax.XTick = 0:7;
+ax.XTick = 1:8;
+xlim([1,8]);
 
 subplot(1,3,2);
-p2 = plot([m1(9:12)',s1(9:12)',m2(9:12)',s2(9:12)']);
+p2 = plot([m1(9:12)',m2(9:12)']);
 p2(1).LineWidth = 2;
 p2(1).Color = [1,0,0];
 p2(2).LineWidth = 2;
-p2(2).Color = [0.6,1,1];
-p2(3).LineWidth = 2;
-p2(3).Color = [0,0,1];
-p2(4).LineWidth = 2;
-p2(4).Color = [1,1,0.6];
+p2(2).Color = [0,0,1];
 
-title('mean and standard deviation of coarseness');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of coarseness');
+legend(['mean',g1],['mean',g2]);
 xlabel('coarseness');
 ax = gca;
-ax.XTick = 0:3;
+ax.XTick = 1:4;
 
 subplot(1,3,3);
-p3 = plot([m1(13:20)',s1(13:20)',m2(13:20)',s2(13:20)']);
+p3 = plot([m1(13:20)',m2(13:20)']);
 p3(1).LineWidth = 2;
 p3(1).Color = [1,0,0];
 p3(2).LineWidth = 2;
-p3(2).Color = [0.6,1,1];
-p3(3).LineWidth = 2;
-p3(3).Color = [0,0,1];
-p3(4).LineWidth = 2;
-p3(4).Color = [1,1,0.6];
+p3(2).Color = [0,0,1];
 
-title('mean and standard deviation of directionality');
-legend(['mean',g1],['standard deviation ',g1],['mean',g2],['standard deviation ',g2]);
+title('mean of directionality');
+legend(['mean',g1],['mean',g2]);
 xlabel('directionality');
 ax = gca;
-ax.XTick = 0:7;
+ax.XTick = 1:8;
+xlim([1,8]);
 
 %------------- END OF CODE --------------

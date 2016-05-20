@@ -12,7 +12,7 @@
 clear; clc;
 
 addr_glb = '..\..\data\global_var\';
-addr_pca = '..\..\data\features\hsv_hist\pca_by_style\';
+addr_pca = '..\..\data\features\hsv_hist\obs_grp_style\';
 addr_rst = '..\..\data\results\';
 
 paintings_by_style = load([addr_glb, 'paintings_by_style.mat']);
@@ -32,7 +32,7 @@ for i = 1:length(styles)
             s1 = styles{i};
             s2 = styles{j};
             
-            hsvhd_pca = load([addr_pca,s1,'_',s2,'_pca.mat']);
+            hsvhd_pca = load([addr_pca,s1,'_',s2,'_obs_grp.mat']);
             grp = hsvhd_pca.grp;
             hsvhd_pca = hsvhd_pca.fs_obs;
             

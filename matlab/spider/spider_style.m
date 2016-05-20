@@ -25,7 +25,7 @@ end
 tle = 'Spider map of classification efficiency';
 
 % Peak range of the data (Mx1 or Mx2)
-rng = [0,1];
+rng = [0.5,1];
 
 % Data set legend identification (1xN)
 leg = {};
